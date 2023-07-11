@@ -8,19 +8,23 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {}
+    "C:\\Users\\samuel.adeosun\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Repository\\SchoolManagerSystem.Repository.csproj",
+      "projectUniqueName": "C:\\Users\\samuel.adeosun\\Desktop\\School_Management_System\\SchoolManagerSystem.Repository\\SchoolManagerSystem.Repository.csproj",
       "projectName": "SchoolManagerSystem.Repository",
-      "projectPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Repository\\SchoolManagerSystem.Repository.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Repository\\obj\\",
+      "projectPath": "C:\\Users\\samuel.adeosun\\Desktop\\School_Management_System\\SchoolManagerSystem.Repository\\SchoolManagerSystem.Repository.csproj",
+      "packagesPath": "C:\\Users\\samuel.adeosun\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\samuel.adeosun\\Desktop\\School_Management_System\\SchoolManagerSystem.Repository\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\samuel.adeosun\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -28,8 +32,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://pkgs.dev.azure.com/PremiumDigitalDev/_packaging/PremiumBankNugets/nuget/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
@@ -62,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }
