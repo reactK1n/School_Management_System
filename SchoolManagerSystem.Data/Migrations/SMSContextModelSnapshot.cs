@@ -19,19 +19,19 @@ namespace SchoolManagerSystem.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CourseStudentCourse", b =>
+            modelBuilder.Entity("CourseStudent", b =>
                 {
                     b.Property<string>("CoursesId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("StudentCoursesId")
+                    b.Property<string>("StudentsId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("CoursesId", "StudentCoursesId");
+                    b.HasKey("CoursesId", "StudentsId");
 
-                    b.HasIndex("StudentCoursesId");
+                    b.HasIndex("StudentsId");
 
-                    b.ToTable("CourseStudentCourse");
+                    b.ToTable("CourseStudent");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -165,7 +165,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.Address", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Address", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -185,7 +185,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -193,7 +193,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.ApplicationUser", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -250,7 +250,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
@@ -270,7 +270,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.Course", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Course", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -281,15 +281,20 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<string>("LevelId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LevelId");
+
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.Level", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Level", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -300,7 +305,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.Property<string>("LevelName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -308,7 +313,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.ToTable("Levels");
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.Principal", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Principal", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -319,7 +324,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
@@ -334,7 +339,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.ToTable("Principals");
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.Student", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Student", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -348,10 +353,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.Property<string>("LevelId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("StudentCourseId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
@@ -363,33 +365,12 @@ namespace SchoolManagerSystem.Data.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.HasIndex("StudentCourseId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.StudentCourse", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CourseId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StudentCourses");
-                });
-
-            modelBuilder.Entity("SchoolManagerSystem.Model.Teacher", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Teacher", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -400,7 +381,7 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
@@ -415,17 +396,17 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("CourseStudentCourse", b =>
+            modelBuilder.Entity("CourseStudent", b =>
                 {
-                    b.HasOne("SchoolManagerSystem.Model.Course", null)
+                    b.HasOne("SchoolManagerSystem.Model.Entities.Course", null)
                         .WithMany()
                         .HasForeignKey("CoursesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SchoolManagerSystem.Model.StudentCourse", null)
+                    b.HasOne("SchoolManagerSystem.Model.Entities.Student", null)
                         .WithMany()
-                        .HasForeignKey("StudentCoursesId")
+                        .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -441,7 +422,7 @@ namespace SchoolManagerSystem.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SchoolManagerSystem.Model.ApplicationUser", null)
+                    b.HasOne("SchoolManagerSystem.Model.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -450,7 +431,7 @@ namespace SchoolManagerSystem.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SchoolManagerSystem.Model.ApplicationUser", null)
+                    b.HasOne("SchoolManagerSystem.Model.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -465,7 +446,7 @@ namespace SchoolManagerSystem.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SchoolManagerSystem.Model.ApplicationUser", null)
+                    b.HasOne("SchoolManagerSystem.Model.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -474,20 +455,29 @@ namespace SchoolManagerSystem.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("SchoolManagerSystem.Model.ApplicationUser", null)
+                    b.HasOne("SchoolManagerSystem.Model.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.Principal", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Course", b =>
                 {
-                    b.HasOne("SchoolManagerSystem.Model.Address", "Address")
+                    b.HasOne("SchoolManagerSystem.Model.Entities.Level", "Level")
+                        .WithMany("Courses")
+                        .HasForeignKey("LevelId");
+
+                    b.Navigation("Level");
+                });
+
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Principal", b =>
+                {
+                    b.HasOne("SchoolManagerSystem.Model.Entities.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
-                    b.HasOne("SchoolManagerSystem.Model.ApplicationUser", "User")
+                    b.HasOne("SchoolManagerSystem.Model.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
@@ -496,21 +486,17 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.Student", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Student", b =>
                 {
-                    b.HasOne("SchoolManagerSystem.Model.Address", "Address")
+                    b.HasOne("SchoolManagerSystem.Model.Entities.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
-                    b.HasOne("SchoolManagerSystem.Model.Level", "Level")
+                    b.HasOne("SchoolManagerSystem.Model.Entities.Level", "Level")
                         .WithMany("Students")
                         .HasForeignKey("LevelId");
 
-                    b.HasOne("SchoolManagerSystem.Model.StudentCourse", "StudentCourse")
-                        .WithMany("Students")
-                        .HasForeignKey("StudentCourseId");
-
-                    b.HasOne("SchoolManagerSystem.Model.ApplicationUser", "User")
+                    b.HasOne("SchoolManagerSystem.Model.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
@@ -518,18 +504,16 @@ namespace SchoolManagerSystem.Data.Migrations
 
                     b.Navigation("Level");
 
-                    b.Navigation("StudentCourse");
-
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.Teacher", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Teacher", b =>
                 {
-                    b.HasOne("SchoolManagerSystem.Model.Address", "Address")
+                    b.HasOne("SchoolManagerSystem.Model.Entities.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
-                    b.HasOne("SchoolManagerSystem.Model.ApplicationUser", "User")
+                    b.HasOne("SchoolManagerSystem.Model.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
@@ -538,13 +522,10 @@ namespace SchoolManagerSystem.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.Level", b =>
+            modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Level", b =>
                 {
-                    b.Navigation("Students");
-                });
+                    b.Navigation("Courses");
 
-            modelBuilder.Entity("SchoolManagerSystem.Model.StudentCourse", b =>
-                {
                     b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
