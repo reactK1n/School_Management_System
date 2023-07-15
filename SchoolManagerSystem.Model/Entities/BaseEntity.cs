@@ -5,10 +5,10 @@ using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagerSystem.Model
+namespace SchoolManagerSystem.Model.Entities
 {
-	public class BaseEntity
-	{
+    public class BaseEntity
+    {
         public string Id { get; set; }
         public DateTime CreatedOn { get; set; }
 
