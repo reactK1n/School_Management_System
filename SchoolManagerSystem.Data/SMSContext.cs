@@ -38,4 +38,5 @@ namespace SchoolManagerSystem.Data
             return await base.SaveChangesAsync(cancellationToken);
         }
     }
+
 }
