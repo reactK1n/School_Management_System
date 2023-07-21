@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Model.Entities;
-using SchoolManagerSystem.Service.Token.Interfaces;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
+using System;
+using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Authentications.Implementations
 {
@@ -47,10 +46,11 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 
 			}
 
-			if (!isRoleExist)
+			if (isRoleExist)
 			{
-				await _userManager.AddToRoleAsync(user, isRole);
+				throw new InvalidOperationException("Role Already Exists");
 			}
+			await _userManager.AddToRoleAsync(user, isRole);
 
 			var response = new UserRegistrationResponse
 			{
