@@ -40,8 +40,7 @@ namespace SchoolManagerSystem
 				opt.UseSqlServer(Configuration["ConnectionStrings:DefaultConnectionString"]);
 			});
 			services.AddScoped<IToken, Token>();
-			services.AddScoped<IRegisterService, RegisterService>();
-			services.AddScoped<ILoginService, LoginService>();
+			services.AddScoped<IAuthServices, AuthServices>();
 
 			services.AddIdentity<ApplicationUser, IdentityRole>()
 				.AddEntityFrameworkStores<SMSContext>()

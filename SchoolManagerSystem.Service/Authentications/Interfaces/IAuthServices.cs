@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Authentications.Interfaces
 {
-	public interface ILoginService
+	public interface IAuthServices
 	{
+		Task<UserRegistrationResponse> Register(UserRegistrationRequest registerRequest, string isRole);
+
 		Task<LoginResponse> Login(LoginRequest loginRequest);
 	}
 }
