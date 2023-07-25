@@ -168,6 +168,7 @@ namespace SchoolManagerSystem.Data.Migrations
             modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Address", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("City")
@@ -273,6 +274,7 @@ namespace SchoolManagerSystem.Data.Migrations
             modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Course", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CourseName")
@@ -297,6 +299,7 @@ namespace SchoolManagerSystem.Data.Migrations
             modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Level", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
@@ -316,6 +319,7 @@ namespace SchoolManagerSystem.Data.Migrations
             modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Principal", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddressId")
@@ -342,6 +346,7 @@ namespace SchoolManagerSystem.Data.Migrations
             modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Student", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddressId")
@@ -373,6 +378,7 @@ namespace SchoolManagerSystem.Data.Migrations
             modelBuilder.Entity("SchoolManagerSystem.Model.Entities.Teacher", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddressId")

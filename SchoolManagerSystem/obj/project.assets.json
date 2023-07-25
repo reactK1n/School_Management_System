@@ -1876,8 +1876,10 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.17",
-          "Microsoft.EntityFrameworkCore": "5.0.17"
+          "Microsoft.EntityFrameworkCore": "5.0.17",
+          "SchoolManagerSystem.Data": "1.0.0"
         },
         "compile": {
           "bin/placeholder/SchoolManagerSystem.Common.dll": {}

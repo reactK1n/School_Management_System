@@ -8,7 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SchoolManagerSystem.Common.Enums;
+using SchoolManagerSystem.Common.Middlewares.AddToRole;
+using SchoolManagerSystem.Common.Middlewares.AddToRole.Implementations;
+using SchoolManagerSystem.Common.Middlewares.AddToRole.Interfaces;
 using SchoolManagerSystem.Data;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Service.Authentications.Implementations;
@@ -16,12 +18,11 @@ using SchoolManagerSystem.Service.Authentications.Interfaces;
 using SchoolManagerSystem.Service.Token.Implementations;
 using SchoolManagerSystem.Service.Token.Interfaces;
 using System;
-using System.Linq;
 using System.Text;
 
 namespace SchoolManagerSystem
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -41,6 +42,7 @@ namespace SchoolManagerSystem
 			});
 			services.AddScoped<IToken, Token>();
 			services.AddScoped<IAuthServices, AuthServices>();
+			services.AddScoped<IAddRoles, AddRoles>();
 
 			services.AddIdentity<ApplicationUser, IdentityRole>()
 				.AddEntityFrameworkStores<SMSContext>()
@@ -77,18 +79,15 @@ namespace SchoolManagerSystem
 				opt.Password.RequireUppercase = true;
 			});
 
-
-
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchoolManagerSystem", Version = "v1" });
 			});
-
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole> roleManager)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.IsDevelopment())
 			{
@@ -96,18 +95,10 @@ namespace SchoolManagerSystem
 				app.UseSwagger();
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolManagerSystem v1"));
 			}
-			var roles = roleManager.Roles.ToList();
-			if(!roles.Any())
-			{
-				roleManager.CreateAsync(new IdentityRole { Name = UserRole.Principal.ToString() }).Wait();
-				roleManager.CreateAsync(new IdentityRole { Name = UserRole.Teacher.ToString() }).Wait();
-				roleManager.CreateAsync(new IdentityRole { Name = UserRole.Student.ToString() }).Wait();
-			}
 
+			app.UseRoleInitializer();
 			app.UseHttpsRedirection();
-
 			app.UseRouting();
-
 			app.UseAuthentication();
 			app.UseAuthorization();
 			app.UseEndpoints(endpoints =>

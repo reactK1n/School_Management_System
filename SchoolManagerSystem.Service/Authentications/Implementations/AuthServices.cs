@@ -21,8 +21,7 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 			_token = token;
 		}
 
-
-		public async Task<UserRegistrationResponse> Register(UserRegistrationRequest registerRequest, string isRole)
+		public async Task<UserRegistrationResponse> Register(UserRegistrationRequest registerRequest)
 		{
 			var user = new ApplicationUser
 			{
@@ -30,9 +29,9 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 				LastName = registerRequest.LastName,
 				Email = registerRequest.Email,
 				UserName = registerRequest.UserName,
-				PasswordHash = registerRequest.Password,
 				EmailConfirmed = true
 			};
+
 			var results = await _userManager.CreateAsync(user, registerRequest.Password);
 			if (!results.Succeeded)
 			{
@@ -43,20 +42,6 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 				}
 				throw new MissingFieldException(errors);
 			}
-
-			var isRoleTheSame = isRole.Equals("Principal");
-			var isRoleExist = false;
-			if (isRoleTheSame)
-			{
-				isRoleExist = await _roleManager.RoleExistsAsync("Principal");
-
-			}
-
-			if (isRoleExist)
-			{
-				throw new InvalidOperationException("Role Already Exists");
-			}
-			await _userManager.AddToRoleAsync(user, isRole);
 
 			var response = new UserRegistrationResponse
 			{
@@ -70,7 +55,6 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 			return response;
 		}
 
-
 		public async Task<LoginResponse> Login(LoginRequest loginRequest)
 		{
 			var user = await _userManager.FindByEmailAsync(loginRequest.Email);
@@ -78,10 +62,10 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 			{
 				throw new ArgumentNullException("Email Provided is Invalid");
 			}
-			var isUserFound = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
-			if (!isUserFound)
+			var isPasswordMatch = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
+			if (!isPasswordMatch)
 			{
-				throw new ArgumentNullException("User does not Exist");
+				throw new ArgumentNullException("Password Not Match");
 			}
 			var token = await _token.GetToken(user);
 
