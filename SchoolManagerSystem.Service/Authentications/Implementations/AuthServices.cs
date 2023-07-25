@@ -11,13 +11,11 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 	public class AuthServices : IAuthServices
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly RoleManager<IdentityRole> _roleManager;
 		private readonly IToken _token;
 
-		public AuthServices(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IToken token)
+		public AuthServices(UserManager<ApplicationUser> userManager, IToken token)
 		{
 			_userManager = userManager;
-			_roleManager = roleManager;
 			_token = token;
 		}
 
