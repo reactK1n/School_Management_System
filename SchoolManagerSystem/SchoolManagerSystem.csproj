@@ -25,10 +25,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SchoolManagerSystem.Data\SchoolManagerSystem.Data.csproj" />
+    <ProjectReference Include="..\SchoolManagerSystem.Service\SchoolManagerSystem.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

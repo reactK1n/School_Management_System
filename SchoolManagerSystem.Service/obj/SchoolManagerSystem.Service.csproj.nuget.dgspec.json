@@ -4,6 +4,142 @@
     "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Service\\SchoolManagerSystem.Service.csproj": {}
   },
   "projects": {
+    "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj",
+        "projectName": "SchoolManagerSystem.Common",
+        "projectPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/PremiumDigitalDev/_packaging/PremiumBankNugets/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Model\\SchoolManagerSystem.Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Model\\SchoolManagerSystem.Model.csproj",
+        "projectName": "SchoolManagerSystem.Model",
+        "projectPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Model\\SchoolManagerSystem.Model.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/PremiumDigitalDev/_packaging/PremiumBankNugets/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Service\\SchoolManagerSystem.Service.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -28,7 +164,14 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj"
+              },
+              "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Model\\SchoolManagerSystem.Model.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Model\\SchoolManagerSystem.Model.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
