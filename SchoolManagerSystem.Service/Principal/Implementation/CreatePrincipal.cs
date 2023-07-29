@@ -35,10 +35,9 @@ namespace SchoolManagerSystem.Service.Principal.Implementation
             };
 
             var createUser = await auth.Register(user, request.Password, UserRole.Principal);
-            var createAddress = await unit.Address.CreateAddress(user);
-
-
+            var createAddress = unit.Address.CreateAddress(request);
             var principal = unit.Principal.CreatePrincipal(createUser.Id, createAddress.Id);
+
             return "principal successfully created";
         }
     }

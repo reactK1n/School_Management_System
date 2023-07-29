@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Data;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Repository.Interfaces;
@@ -15,13 +16,13 @@ namespace SchoolManagerSystem.Repository.Implementation
 			_dbSet = context.Set<Address>();
 		}
 
-		public Address CreateAddress(Address address)
+		public Address CreateAddress(UserRegistrationRequest userRequest)
 		{
 			var userAddress = new Address
 			{
 				Id = Guid.NewGuid().ToString(),
-				City = address.City,
-				State = address.State,
+				City = userRequest.City,
+				State = userRequest.State,
 			};
 			_dbSet.Add(userAddress);
 
