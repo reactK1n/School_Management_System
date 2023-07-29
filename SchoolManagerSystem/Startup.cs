@@ -13,8 +13,6 @@ using SchoolManagerSystem.Data;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Service.Authentications.Implementations;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
-using SchoolManagerSystem.Service.Token.Implementations;
-using SchoolManagerSystem.Service.Token.Interfaces;
 using System;
 using System.Text;
 

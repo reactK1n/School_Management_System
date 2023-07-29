@@ -2,13 +2,12 @@
 using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
-using SchoolManagerSystem.Service.Token.Interfaces;
 using System;
 using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Authentications.Implementations
 {
-	public class AuthServices : IAuthServices
+    public class AuthServices : IAuthServices
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IToken _token;
