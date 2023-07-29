@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SchoolManagerSystem.Common;
+using SchoolManagerSystem.Common.RegisterServiceClass;
 using SchoolManagerSystem.Data;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Repository.Implementation;
@@ -48,49 +49,7 @@ namespace SchoolManagerSystem
 			services.AddScoped<IPrincipalRepository, PrincipalRepository>();
 			services.AddScoped<ICreatePrincipal, CreatePrincipal>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-
-
-
-
-
-
-
-			services.AddIdentity<ApplicationUser, IdentityRole>()
-				.AddEntityFrameworkStores<SMSContext>()
-				.AddDefaultTokenProviders();
-
-			services.AddAuthentication(opt =>
-			{
-				opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-				opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-				opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-			}).AddJwtBearer(opt =>
-			{
-				opt.TokenValidationParameters = new TokenValidationParameters
-
-				{
-					ValidateAudience = true,
-					ValidateIssuer = true,
-					ValidateLifetime = true,
-					ValidateIssuerSigningKey = true,
-					ValidAudience = Configuration["JwtSettings:ValidAudience"],
-					ValidIssuer = Configuration["JwtSettings:ValidIssuer"],
-					IssuerSigningKey = new SymmetricSecurityKey(
-						Encoding.UTF8.GetBytes(Configuration["JwtSettings:SecretKey"])),
-					ClockSkew = TimeSpan.Zero
-				};
-			});
-
-			services.Configure<IdentityOptions>(opt =>
-			{
-				opt.User.RequireUniqueEmail = true;
-				opt.Password.RequiredLength = 8;
-				opt.Password.RequireNonAlphanumeric = true;
-				opt.Password.RequireDigit = true;
-				opt.Password.RequireUppercase = true;
-			});
-
+			services.AddAuthenticationConfig(Configuration);
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{

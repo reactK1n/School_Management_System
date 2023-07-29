@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using SchoolManagerSystem.Data;
 using SchoolManagerSystem.Model.Entities;
+using System;
+using System.Text;
 
 namespace SchoolManagerSystem.Common.RegisterServiceClass
 {
 	public static class RegisterServices
 	{
-/*		public static void ConfigAuthentication(this IServiceCollection services)
+		public static void AddAuthenticationConfig(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.AddIdentity<ApplicationUser, IdentityRole>()
 				.AddEntityFrameworkStores<SMSContext>()
@@ -27,10 +32,10 @@ namespace SchoolManagerSystem.Common.RegisterServiceClass
 					ValidateIssuer = true,
 					ValidateLifetime = true,
 					ValidateIssuerSigningKey = true,
-					ValidAudience = Configuration["JwtSettings:ValidAudience"],
-					ValidIssuer = Configuration["JwtSettings:ValidIssuer"],
+					ValidAudience = configuration["JwtSettings:ValidAudience"],
+					ValidIssuer = configuration["JwtSettings:ValidIssuer"],
 					IssuerSigningKey = new SymmetricSecurityKey(
-						Encoding.UTF8.GetBytes(Configuration["JwtSettings:SecretKey"])),
+						Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"])),
 					ClockSkew = TimeSpan.Zero
 				};
 			});
@@ -43,7 +48,7 @@ namespace SchoolManagerSystem.Common.RegisterServiceClass
 				opt.Password.RequireDigit = true;
 				opt.Password.RequireUppercase = true;
 			});
-		}*/
+		}
 
 	}
 }
