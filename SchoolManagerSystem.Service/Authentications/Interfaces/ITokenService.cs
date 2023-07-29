@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Authentications.Interfaces
 {
-    public interface IToken
+    public interface ITokenService
     {
         Task<string> GetToken(ApplicationUser user);
     }

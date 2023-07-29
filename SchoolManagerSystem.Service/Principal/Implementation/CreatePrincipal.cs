@@ -1,8 +1,9 @@
 ﻿using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Common.Enums;
 using SchoolManagerSystem.Model.Entities;
-using SchoolManagerSystem.Repository.UnitOfWork;
+using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
+using SchoolManagerSystem.Service.Principal.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Principal.Implementation
 {
-    public class CreatePrincipal
+    public class CreatePrincipal : ICreatePrincipal
     {
         private readonly IUnitOfWork unit;
         private readonly IAuthServices auth;
@@ -32,9 +33,10 @@ namespace SchoolManagerSystem.Service.Principal.Implementation
                 UserName = request.UserName,
                 EmailConfirmed = true
             };
-            var createUser = await auth.Register(user, request.Password, UserRole.Principal);
 
-            var createAddress = new { Id = "testing" };
+            var createUser = await auth.Register(user, request.Password, UserRole.Principal);
+            var createAddress = await unit.Address.CreateAddress(user);
+
 
             var principal = unit.Principal.CreatePrincipal(createUser.Id, createAddress.Id);
             return "principal successfully created";

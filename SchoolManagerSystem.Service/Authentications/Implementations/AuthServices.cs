@@ -11,9 +11,9 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
     public class AuthServices : IAuthServices
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly IToken _token;
+		private readonly ITokenService _token;
 
-		public AuthServices(UserManager<ApplicationUser> userManager, IToken token)
+		public AuthServices(UserManager<ApplicationUser> userManager, ITokenService token)
 		{
 			_userManager = userManager;
 			_token = token;

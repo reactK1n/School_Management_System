@@ -36,7 +36,7 @@ namespace SchoolManagerSystem
 				//registering of database service
 				opt.UseSqlServer(Configuration["ConnectionStrings:DefaultConnectionString"]);
 			});
-			services.AddScoped<IToken, Token>();
+			services.AddScoped<ITokenService, TokenService>();
 			services.AddScoped<IAuthServices, AuthServices>();
 
 			services.AddIdentity<ApplicationUser, IdentityRole>()

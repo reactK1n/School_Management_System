@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Authentications.Implementations
 {
-    public class Token : IToken
+    public class TokenService : ITokenService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _config;
 
-        public Token(UserManager<ApplicationUser> userManager, IConfiguration config)
+        public TokenService(UserManager<ApplicationUser> userManager, IConfiguration config)
         {
             _userManager = userManager;
             _config = config;

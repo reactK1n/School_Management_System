@@ -6247,23 +6247,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\samuel.adeosun\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\samuel.adeosun\\Desktop\\School_Management_System\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj",
       "projectName": "SchoolManagerSystem.Common",
-      "projectPath": "C:\\Users\\samuel.adeosun\\Desktop\\School_Management_System\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj",
-      "packagesPath": "C:\\Users\\samuel.adeosun\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\samuel.adeosun\\Desktop\\School_Management_System\\SchoolManagerSystem.Common\\obj\\",
+      "projectPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\samuel.adeosun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6271,14 +6267,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://pkgs.dev.azure.com/PremiumDigitalDev/_packaging/PremiumBankNugets/nuget/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\samuel.adeosun\\Desktop\\School_Management_System\\SchoolManagerSystem.Data\\SchoolManagerSystem.Data.csproj": {
-              "projectPath": "C:\\Users\\samuel.adeosun\\Desktop\\School_Management_System\\SchoolManagerSystem.Data\\SchoolManagerSystem.Data.csproj"
+            "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Data\\SchoolManagerSystem.Data.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Data\\SchoolManagerSystem.Data.csproj"
             }
           }
         }
@@ -6322,7 +6319,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
