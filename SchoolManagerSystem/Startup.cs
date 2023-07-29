@@ -1,17 +1,13 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SchoolManagerSystem.Common;
 using SchoolManagerSystem.Common.RegisterServiceClass;
 using SchoolManagerSystem.Data;
-using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Repository.Implementation;
 using SchoolManagerSystem.Repository.Interfaces;
 using SchoolManagerSystem.Repository.UnitOfWork.Implementations;
@@ -20,12 +16,10 @@ using SchoolManagerSystem.Service.Authentications.Implementations;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
 using SchoolManagerSystem.Service.Principal.Implementation;
 using SchoolManagerSystem.Service.Principal.Interfaces;
-using System;
-using System.Text;
 
 namespace SchoolManagerSystem
 {
-    public class Startup
+	public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -50,6 +44,7 @@ namespace SchoolManagerSystem
 			services.AddScoped<ICreatePrincipal, CreatePrincipal>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddAuthenticationConfig(Configuration);
+
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
