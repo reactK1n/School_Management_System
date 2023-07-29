@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SchoolManagerSystem.Common.DTOs;
+using SchoolManagerSystem.Common.Enums;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
 using System;
@@ -18,18 +19,9 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 			_token = token;
 		}
 
-		public async Task<UserRegistrationResponse> Register(UserRegistrationRequest registerRequest)
+		public async Task<UserRegistrationResponse> Register(ApplicationUser user, string password, UserRole role)
 		{
-			var user = new ApplicationUser
-			{
-				FirstName = registerRequest.FirstName,
-				LastName = registerRequest.LastName,
-				Email = registerRequest.Email,
-				UserName = registerRequest.UserName,
-				EmailConfirmed = true
-			};
-
-			var results = await _userManager.CreateAsync(user, registerRequest.Password);
+			var results = await _userManager.CreateAsync(user, password);
 			if (!results.Succeeded)
 			{
 				var errors = string.Empty;
@@ -39,6 +31,7 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 				}
 				throw new MissingFieldException(errors);
 			}
+			await _userManager.AddToRoleAsync(user, role.ToString());
 
 			var response = new UserRegistrationResponse
 			{

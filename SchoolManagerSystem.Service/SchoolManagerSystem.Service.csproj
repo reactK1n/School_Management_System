@@ -13,6 +13,11 @@
   <ItemGroup>
     <ProjectReference Include="..\SchoolManagerSystem.Common\SchoolManagerSystem.Common.csproj" />
     <ProjectReference Include="..\SchoolManagerSystem.Model\SchoolManagerSystem.Model.csproj" />
+    <ProjectReference Include="..\SchoolManagerSystem.Repository\SchoolManagerSystem.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Principal\Interfaces\" />
   </ItemGroup>
 
 </Project>
