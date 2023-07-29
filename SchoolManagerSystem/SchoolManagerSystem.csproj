@@ -24,11 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SchoolManagerSystem.Common\SchoolManagerSystem.Common.csproj" />
     <ProjectReference Include="..\SchoolManagerSystem.Data\SchoolManagerSystem.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\SchoolManagerSystem.Service\SchoolManagerSystem.Service.csproj" />
   </ItemGroup>
 
 </Project>

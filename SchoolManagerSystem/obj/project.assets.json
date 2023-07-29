@@ -1872,6 +1872,23 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "SchoolManagerSystem.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.17",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.17",
+          "Microsoft.EntityFrameworkCore": "5.0.17",
+          "SchoolManagerSystem.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SchoolManagerSystem.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SchoolManagerSystem.Common.dll": {}
+        }
+      },
       "SchoolManagerSystem.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -1901,6 +1918,38 @@
         },
         "runtime": {
           "bin/placeholder/SchoolManagerSystem.Model.dll": {}
+        }
+      },
+      "SchoolManagerSystem.Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "SchoolManagerSystem.Common": "1.0.0",
+          "SchoolManagerSystem.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SchoolManagerSystem.Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SchoolManagerSystem.Repository.dll": {}
+        }
+      },
+      "SchoolManagerSystem.Service/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.17",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.17",
+          "Microsoft.EntityFrameworkCore": "5.0.17",
+          "SchoolManagerSystem.Common": "1.0.0",
+          "SchoolManagerSystem.Model": "1.0.0",
+          "SchoolManagerSystem.Repository": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SchoolManagerSystem.Service.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SchoolManagerSystem.Service.dll": {}
         }
       }
     }
@@ -6179,6 +6228,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "SchoolManagerSystem.Common/1.0.0": {
+      "type": "project",
+      "path": "../SchoolManagerSystem.Common/SchoolManagerSystem.Common.csproj",
+      "msbuildProject": "../SchoolManagerSystem.Common/SchoolManagerSystem.Common.csproj"
+    },
     "SchoolManagerSystem.Data/1.0.0": {
       "type": "project",
       "path": "../SchoolManagerSystem.Data/SchoolManagerSystem.Data.csproj",
@@ -6188,6 +6242,16 @@
       "type": "project",
       "path": "../SchoolManagerSystem.Model/SchoolManagerSystem.Model.csproj",
       "msbuildProject": "../SchoolManagerSystem.Model/SchoolManagerSystem.Model.csproj"
+    },
+    "SchoolManagerSystem.Repository/1.0.0": {
+      "type": "project",
+      "path": "../SchoolManagerSystem.Repository/SchoolManagerSystem.Repository.csproj",
+      "msbuildProject": "../SchoolManagerSystem.Repository/SchoolManagerSystem.Repository.csproj"
+    },
+    "SchoolManagerSystem.Service/1.0.0": {
+      "type": "project",
+      "path": "../SchoolManagerSystem.Service/SchoolManagerSystem.Service.csproj",
+      "msbuildProject": "../SchoolManagerSystem.Service/SchoolManagerSystem.Service.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6199,7 +6263,9 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.17",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.17",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.17.2",
+      "SchoolManagerSystem.Common >= 1.0.0",
       "SchoolManagerSystem.Data >= 1.0.0",
+      "SchoolManagerSystem.Service >= 1.0.0",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
   },
@@ -6231,8 +6297,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Common\\SchoolManagerSystem.Common.csproj"
+            },
             "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Data\\SchoolManagerSystem.Data.csproj": {
               "projectPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Data\\SchoolManagerSystem.Data.csproj"
+            },
+            "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Service\\SchoolManagerSystem.Service.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\Repos\\SchoolManagerSystem\\SchoolManagerSystem.Service\\SchoolManagerSystem.Service.csproj"
             }
           }
         }
