@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
+using SchoolManagerSystem.Service.Principal.Implementation;
+using SchoolManagerSystem.Service.Principal.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -11,20 +13,22 @@ namespace SchoolManagerSystem.Controllers
 	public class AuthController : ControllerBase
 	{
 		private readonly IAuthServices _authServices;
+		private readonly ICreatePrincipal _createPrincipal;
 
-		public AuthController(IAuthServices authServices)
+		public AuthController(IAuthServices authServices, ICreatePrincipal createPrincipal)
 		{
 			_authServices = authServices;
+			_createPrincipal = createPrincipal;
 		}
 
 
 		[HttpPost]
-		[Route("register")]
-		public async Task<IActionResult> Register([FromBody] UserRegistrationRequest userRegistrationRequest)
+		[Route("Register/Principal")]
+		public async Task<IActionResult> RegisterPrincipal([FromBody] UserRegistrationRequest userRegistrationRequest)
 		{
 			try
 			{
-				var response = await _authServices.Register(userRegistrationRequest);
+				var response = await _createPrincipal.CreatePrincipalAsync(userRegistrationRequest);
 				if (response != null)
 				{
 					return Ok(response);
@@ -45,6 +49,7 @@ namespace SchoolManagerSystem.Controllers
 				return BadRequest();
 			}
 		}
+
 
 
 		[HttpPost]

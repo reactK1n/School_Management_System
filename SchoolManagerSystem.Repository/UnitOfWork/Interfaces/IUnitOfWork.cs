@@ -1,5 +1,6 @@
 ﻿using SchoolManagerSystem.Repository.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Repository.UnitOfWork.Interfaces
 {
@@ -8,5 +9,7 @@ namespace SchoolManagerSystem.Repository.UnitOfWork.Interfaces
         IPrincipalRepository Principal { get; }
 
         IAddressRepository Address { get; }
+
+        Task SaveChangesAsync();
     }
 }

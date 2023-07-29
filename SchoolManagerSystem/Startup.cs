@@ -11,8 +11,14 @@ using Microsoft.OpenApi.Models;
 using SchoolManagerSystem.Common;
 using SchoolManagerSystem.Data;
 using SchoolManagerSystem.Model.Entities;
+using SchoolManagerSystem.Repository.Implementation;
+using SchoolManagerSystem.Repository.Interfaces;
+using SchoolManagerSystem.Repository.UnitOfWork.Implementations;
+using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Authentications.Implementations;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
+using SchoolManagerSystem.Service.Principal.Implementation;
+using SchoolManagerSystem.Service.Principal.Interfaces;
 using System;
 using System.Text;
 
@@ -38,6 +44,17 @@ namespace SchoolManagerSystem
 			});
 			services.AddScoped<ITokenService, TokenService>();
 			services.AddScoped<IAuthServices, AuthServices>();
+			services.AddScoped<IAddressRepository, AddressRepository>();
+			services.AddScoped<IPrincipalRepository, PrincipalRepository>();
+			services.AddScoped<ICreatePrincipal, CreatePrincipal>();
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+
+
+
+
+
 
 			services.AddIdentity<ApplicationUser, IdentityRole>()
 				.AddEntityFrameworkStores<SMSContext>()

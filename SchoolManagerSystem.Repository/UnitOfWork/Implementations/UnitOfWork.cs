@@ -3,6 +3,7 @@ using SchoolManagerSystem.Repository.Implementation;
 using SchoolManagerSystem.Repository.Interfaces;
 using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Repository.UnitOfWork.Implementations
 {
@@ -25,6 +26,11 @@ namespace SchoolManagerSystem.Repository.UnitOfWork.Implementations
 		public IAddressRepository Address
 		{
 			get => _address ??= new AddressRepository(_context);
+		}
+
+		public async Task SaveChangesAsync()
+		{
+			await _context.SaveChangesAsync();
 		}
 
 		public void Dispose()
