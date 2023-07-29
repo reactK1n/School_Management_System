@@ -8,9 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SchoolManagerSystem.Common.Middlewares.AddToRole;
-using SchoolManagerSystem.Common.Middlewares.AddToRole.Implementations;
-using SchoolManagerSystem.Common.Middlewares.AddToRole.Interfaces;
+using SchoolManagerSystem.Common;
 using SchoolManagerSystem.Data;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Service.Authentications.Implementations;
@@ -42,7 +40,6 @@ namespace SchoolManagerSystem
 			});
 			services.AddScoped<IToken, Token>();
 			services.AddScoped<IAuthServices, AuthServices>();
-			services.AddScoped<IAddRoles, AddRoles>();
 
 			services.AddIdentity<ApplicationUser, IdentityRole>()
 				.AddEntityFrameworkStores<SMSContext>()
@@ -96,7 +93,7 @@ namespace SchoolManagerSystem
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolManagerSystem v1"));
 			}
 
-			app.UseRoleInitializer();
+			app.InitRoles();
 			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseAuthentication();

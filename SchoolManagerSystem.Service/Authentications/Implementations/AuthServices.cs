@@ -79,6 +79,5 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 
 			return response;
 		}
-
-	}
+    }
 }
