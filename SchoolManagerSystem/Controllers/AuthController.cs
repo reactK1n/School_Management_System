@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
-using SchoolManagerSystem.Service.Principal.Implementation;
-using SchoolManagerSystem.Service.Principal.Interfaces;
+using SchoolManagerSystem.Service.CreateUser.Implementation;
+using SchoolManagerSystem.Service.CreateUser.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -14,11 +14,18 @@ namespace SchoolManagerSystem.Controllers
 	{
 		private readonly IAuthServices _authServices;
 		private readonly ICreatePrincipal _createPrincipal;
+		private readonly ICreateTeacher _createTeacher;
+		private readonly ICreateStudent _createStudent;
 
-		public AuthController(IAuthServices authServices, ICreatePrincipal createPrincipal)
+		public AuthController(IAuthServices authServices,
+			ICreatePrincipal createPrincipal,
+			ICreateTeacher createTeacher,
+			ICreateStudent createStudent)
 		{
 			_authServices = authServices;
 			_createPrincipal = createPrincipal;
+			_createTeacher = createTeacher;
+			_createStudent = createStudent;
 		}
 
 
@@ -29,6 +36,62 @@ namespace SchoolManagerSystem.Controllers
 			try
 			{
 				var response = await _createPrincipal.CreatePrincipalAsync(userRegistrationRequest);
+				if (response != null)
+				{
+					return Ok(response);
+				}
+				return BadRequest();
+
+			}
+			catch (MissingFieldException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (InvalidOperationException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch
+			{
+				return BadRequest();
+			}
+		}
+
+		[HttpPost]
+		[Route("Register/Teacher")]
+		public async Task<IActionResult> RegisterTeacher([FromBody] UserRegistrationRequest userRegistrationRequest)
+		{
+			try
+			{
+				var response = await _createTeacher.CreateTeacherAsync(userRegistrationRequest);
+				if (response != null)
+				{
+					return Ok(response);
+				}
+				return BadRequest();
+
+			}
+			catch (MissingFieldException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (InvalidOperationException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch
+			{
+				return BadRequest();
+			}
+		}
+
+		[HttpPost]
+		[Route("Register/Student")]
+		public async Task<IActionResult> RegisterStudent([FromBody] UserRegistrationRequest userRegistrationRequest)
+		{
+			try
+			{
+				var response = await _createStudent.CreateStudentAsync(userRegistrationRequest);
 				if (response != null)
 				{
 					return Ok(response);

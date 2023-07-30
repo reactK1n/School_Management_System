@@ -2,8 +2,8 @@
 
 namespace SchoolManagerSystem.Repository.Interfaces
 {
-	public interface IPrincipalRepository
+	public interface IStudentRepository
 	{
-		Principal CreatePrincipal(string userId, string addressId);
+		Student CreateStudent(string userId, string addressId);
 	}
 }

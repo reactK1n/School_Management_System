@@ -14,8 +14,8 @@ using SchoolManagerSystem.Repository.UnitOfWork.Implementations;
 using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Authentications.Implementations;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
-using SchoolManagerSystem.Service.Principal.Implementation;
-using SchoolManagerSystem.Service.Principal.Interfaces;
+using SchoolManagerSystem.Service.CreateUser.Implementation;
+using SchoolManagerSystem.Service.CreateUser.Interfaces;
 
 namespace SchoolManagerSystem
 {
@@ -41,7 +41,11 @@ namespace SchoolManagerSystem
 			services.AddScoped<IAuthServices, AuthServices>();
 			services.AddScoped<IAddressRepository, AddressRepository>();
 			services.AddScoped<IPrincipalRepository, PrincipalRepository>();
+			services.AddScoped<ITeacherRepository, TeacherRepository>();
+			services.AddScoped<IStudentRepository, StudentRepository>();
 			services.AddScoped<ICreatePrincipal, CreatePrincipal>();
+			services.AddScoped<ICreateTeacher, CreateTeacher>();
+			services.AddScoped<ICreateStudent, CreateStudent>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddAuthenticationConfig(Configuration);
 

@@ -10,6 +10,12 @@ namespace SchoolManagerSystem.Repository.UnitOfWork.Interfaces
 
         IAddressRepository Address { get; }
 
-        Task SaveChangesAsync();
+		ITeacherRepository Teacher { get; }
+
+		IStudentRepository Student { get; }
+
+
+
+		Task SaveChangesAsync();
     }
 }

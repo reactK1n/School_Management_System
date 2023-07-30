@@ -3,10 +3,10 @@ using SchoolManagerSystem.Common.Enums;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
-using SchoolManagerSystem.Service.Principal.Interfaces;
+using SchoolManagerSystem.Service.CreateUser.Interfaces;
 using System.Threading.Tasks;
 
-namespace SchoolManagerSystem.Service.Principal.Implementation
+namespace SchoolManagerSystem.Service.CreateUser.Implementation
 {
 	public class CreatePrincipal : ICreatePrincipal
 	{
