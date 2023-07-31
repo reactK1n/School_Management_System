@@ -16,8 +16,8 @@ using SchoolManagerSystem.Service.Authentications.Implementations;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
 using SchoolManagerSystem.Service.CreateUser.Implementation;
 using SchoolManagerSystem.Service.CreateUser.Interfaces;
-using SchoolManagerSystem.Service.Image.Implementations;
-using SchoolManagerSystem.Service.Image.Interfaces;
+using SchoolManagerSystem.Service.Files.Implementations;
+using SchoolManagerSystem.Service.Files.Interfaces;
 using System;
 
 namespace SchoolManagerSystem

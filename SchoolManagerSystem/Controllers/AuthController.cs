@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
-using SchoolManagerSystem.Service.CreateUser.Implementation;
 using SchoolManagerSystem.Service.CreateUser.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -58,7 +57,7 @@ namespace SchoolManagerSystem.Controllers
 		}
 
 		[HttpPost]
-		[Route("Register/Teacher")]
+		[Route("register/teacher")]
 		public async Task<IActionResult> RegisterTeacher([FromBody] UserRegistrationRequest userRegistrationRequest)
 		{
 			try
@@ -86,7 +85,7 @@ namespace SchoolManagerSystem.Controllers
 		}
 
 		[HttpPost]
-		[Route("Register/Student")]
+		[Route("register/student")]
 		public async Task<IActionResult> RegisterStudent([FromBody] UserRegistrationRequest userRegistrationRequest)
 		{
 			try

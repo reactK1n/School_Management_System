@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagerSystem.Common.DTOs;
-using SchoolManagerSystem.Service.Image.Interfaces;
+using SchoolManagerSystem.Service.Files.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -29,7 +29,7 @@ namespace SchoolManagerSystem.Controllers
 				var uploadResult = await _imageService.UploadImage(image.Image);
 				if (uploadResult != null)
 				{
-					return NoContent();
+					return Ok("image upload successfully");
 				}
 				return BadRequest("image upload failed");
 			}

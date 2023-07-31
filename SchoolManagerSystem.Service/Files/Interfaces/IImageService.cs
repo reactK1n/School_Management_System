@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace SchoolManagerSystem.Service.Image.Interfaces
+namespace SchoolManagerSystem.Service.Files.Interfaces
 {
 	public interface IImageService
 	{

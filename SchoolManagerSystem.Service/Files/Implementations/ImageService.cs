@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace SchoolManagerSystem.Service.Image.Implementations
+namespace SchoolManagerSystem.Service.Files.Implementations
 {
 	public class ImageService : IImageService
 	{
