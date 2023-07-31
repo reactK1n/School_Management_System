@@ -60,6 +60,10 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.17, )"
+            },
+            "Microsoft.OpenApi": {
+              "target": "Package",
+              "version": "[1.6.6, )"
             }
           },
           "imports": [

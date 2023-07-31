@@ -653,7 +653,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.OpenApi/1.2.3": {
+      "Microsoft.OpenApi/1.6.6": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
@@ -1927,6 +1927,7 @@
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.17",
           "Microsoft.EntityFrameworkCore": "5.0.17",
+          "Microsoft.OpenApi": "1.6.6",
           "SchoolManagerSystem.Data": "1.0.0"
         },
         "compile": {
@@ -2817,20 +2818,17 @@
         "runtime.json"
       ]
     },
-    "Microsoft.OpenApi/1.2.3": {
-      "sha512": "Nug3rO+7Kl5/SBAadzSMAVgqDlfGjJZ0GenQrLywJ84XGKO0uRqkunz5Wyl0SDwcR71bAATXvSdbdzPrYRYKGw==",
+    "Microsoft.OpenApi/1.6.6": {
+      "sha512": "7SE3RTGpdXUN+PkVN4xRrtsATgBI7BpsBvbjg6SykurEinA69vIl4S8DWPeGLaBykaCDq87/Ebf2Ashoh7Ky/g==",
       "type": "package",
-      "path": "microsoft.openapi/1.2.3",
+      "path": "microsoft.openapi/1.6.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net46/Microsoft.OpenApi.dll",
-        "lib/net46/Microsoft.OpenApi.pdb",
-        "lib/net46/Microsoft.OpenApi.xml",
         "lib/netstandard2.0/Microsoft.OpenApi.dll",
         "lib/netstandard2.0/Microsoft.OpenApi.pdb",
         "lib/netstandard2.0/Microsoft.OpenApi.xml",
-        "microsoft.openapi.1.2.3.nupkg.sha512",
+        "microsoft.openapi.1.6.6.nupkg.sha512",
         "microsoft.openapi.nuspec"
       ]
     },

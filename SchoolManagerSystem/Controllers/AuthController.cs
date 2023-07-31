@@ -30,7 +30,7 @@ namespace SchoolManagerSystem.Controllers
 
 
 		[HttpPost]
-		[Route("Register/Principal")]
+		[Route("register/principal")]
 		public async Task<IActionResult> RegisterPrincipal([FromBody] UserRegistrationRequest userRegistrationRequest)
 		{
 			try
