@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
-using SchoolManagerSystem.Service.CreateUser.Interfaces;
+using SchoolManagerSystem.Service.Users.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -12,19 +12,13 @@ namespace SchoolManagerSystem.Controllers
 	public class AuthController : ControllerBase
 	{
 		private readonly IAuthServices _authServices;
-		private readonly ICreatePrincipal _createPrincipal;
-		private readonly ICreateTeacher _createTeacher;
-		private readonly ICreateStudent _createStudent;
+		private readonly ICreateUser _createUser;
 
 		public AuthController(IAuthServices authServices,
-			ICreatePrincipal createPrincipal,
-			ICreateTeacher createTeacher,
-			ICreateStudent createStudent)
+			ICreateUser createUser)
 		{
 			_authServices = authServices;
-			_createPrincipal = createPrincipal;
-			_createTeacher = createTeacher;
-			_createStudent = createStudent;
+			_createUser = createUser;
 		}
 
 
@@ -34,7 +28,7 @@ namespace SchoolManagerSystem.Controllers
 		{
 			try
 			{
-				var response = await _createPrincipal.CreatePrincipalAsync(userRegistrationRequest);
+				var response = await _createUser.CreatePrincipalAsync(userRegistrationRequest);
 				if (response != null)
 				{
 					return Ok(response);
@@ -62,7 +56,7 @@ namespace SchoolManagerSystem.Controllers
 		{
 			try
 			{
-				var response = await _createTeacher.CreateTeacherAsync(userRegistrationRequest);
+				var response = await _createUser.CreateTeacherAsync(userRegistrationRequest);
 				if (response != null)
 				{
 					return Ok(response);
@@ -90,7 +84,7 @@ namespace SchoolManagerSystem.Controllers
 		{
 			try
 			{
-				var response = await _createStudent.CreateStudentAsync(userRegistrationRequest);
+				var response = await _createUser.CreateStudentAsync(userRegistrationRequest);
 				if (response != null)
 				{
 					return Ok(response);

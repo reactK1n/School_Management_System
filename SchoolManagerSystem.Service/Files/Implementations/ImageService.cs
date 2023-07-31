@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SchoolManagerSystem.Common.Model;
 using SchoolManagerSystem.Model.Entities;
-using SchoolManagerSystem.Service.Image.Interfaces;
+using SchoolManagerSystem.Service.Files.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
