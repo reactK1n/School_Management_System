@@ -48,10 +48,9 @@ namespace SchoolManagerSystem
 			services.AddScoped<IPrincipalRepository, PrincipalRepository>();
 			services.AddScoped<ITeacherRepository, TeacherRepository>();
 			services.AddScoped<IStudentRepository, StudentRepository>();
-			services.AddScoped<ICreateUser, CreateUser>();
-			services.AddScoped<IUpdateUser, UpdateUser>();
-			services.AddScoped<IFetchUser, FetchUser>();
-			services.AddScoped<IDeleteUser, DeleteUser>();
+			services.AddScoped<IPrincipalServices, PrincipalServices>();
+			services.AddScoped<ITeacherServices, TeacherServices>();
+			services.AddScoped<IStudentServices, StudentServices>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddAuthenticationConfig(Configuration);
 
