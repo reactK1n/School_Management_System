@@ -67,7 +67,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 				EmailConfirmed = true
 			};
 
-			var createUser = await _auth.Register(user, request.Password, UserRole.Student);
+			var createUser = await _auth.Register(user, request.Password, UserRole.Teacher);
 			var createAddress = _unit.Address.CreateAddress(request);
 			var teacher = _unit.Teacher.CreateTeacher(createUser.Id, createAddress.Id);
 			await _unit.SaveChangesAsync();

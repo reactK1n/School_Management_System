@@ -2,7 +2,7 @@
 
 namespace SchoolManagerSystem.Common.DTOs
 {
-	public class UserRegistrationResponse
+	public class UserResponse
 	{
 		public string Id { get; set; }	
 

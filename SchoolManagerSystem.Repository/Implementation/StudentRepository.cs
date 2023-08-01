@@ -2,6 +2,9 @@
 using SchoolManagerSystem.Data;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Repository.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Repository.Implementation
 {
@@ -25,5 +28,22 @@ namespace SchoolManagerSystem.Repository.Implementation
             _dbSet.Add(student);
             return student;
         }
-    }
+
+		public ICollection<Student> FetchStudents()
+		{
+            return _dbSet.ToList();
+		}
+
+
+		public async Task<Student> GetStudentAsync(string userId)
+		{
+			var user = await _dbSet.FirstOrDefaultAsync(x => x.UserId == userId);
+			return user;
+		}
+
+		public async Task DeleteStudentAsync(Student student)
+		{
+			_dbSet.Remove(student);
+		}
+	}
 }
