@@ -5,6 +5,6 @@ namespace SchoolManagerSystem.Service.Files.Interfaces
 {
 	public interface IImageService
 	{
-		Task<string> UploadImage(IFormFile image);
+		Task<string> UploadImageAsync(IFormFile image);
 	}
 }

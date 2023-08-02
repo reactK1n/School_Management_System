@@ -8,7 +8,7 @@ namespace SchoolManagerSystem.Repository.Interfaces
 	{
 		Address CreateAddress(UserRegistrationRequest userRequest);
 
-		Task<Address> FetchAddressAsync(string addressID);
+		Task<Address> FetchAddressAsync(string addressId);
 
 		Task UpdateAddressAsync(Address address);
 

@@ -20,13 +20,13 @@ namespace SchoolManagerSystem.Controllers
 		}
 
 
-		[HttpPatch]
+		[HttpPost]
 		[Route("image")]
 		public async Task<IActionResult> UploadImage([FromForm] ImageRequest image)
 		{
 			try
 			{
-				var uploadResult = await _imageService.UploadImage(image.Image);
+				var uploadResult = await _imageService.UploadImageAsync(image.Image);
 				if (uploadResult != null)
 				{
 					return Ok("image upload successfully");

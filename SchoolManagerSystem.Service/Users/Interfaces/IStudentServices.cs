@@ -1,8 +1,6 @@
-﻿using SchoolManagerSystem.Common.DTOs;
-using System;
+﻿using Microsoft.AspNetCore.Http;
+using SchoolManagerSystem.Common.DTOs;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Users.Interfaces
@@ -15,7 +13,7 @@ namespace SchoolManagerSystem.Service.Users.Interfaces
 
 		Task<UserResponse> GetUserAsync(string userId);
 
-		Task<string> UpdateUserAsync(string userId, UserUpdateRequest request);
+		Task<string> UpdateUserAsync(string userId, UserUpdateRequest request, IFormFile image);
 
 		Task<string> DeleteUserAsync(string userId);
 	}

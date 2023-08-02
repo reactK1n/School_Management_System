@@ -17,13 +17,42 @@ namespace SchoolManagerSystem.Controllers
 			_principalServices = principalServices;
 		}
 
+		[HttpPost]
+		[Route("register")]
+		public async Task<IActionResult> RegisterPrincipal([FromBody] UserRegistrationRequest userRegistrationRequest)
+		{
+			try
+			{
+				var response = await _principalServices.CreateUserAsync(userRegistrationRequest);
+				if (response != null)
+				{
+					return Ok(response);
+				}
+				return BadRequest();
+
+			}
+			catch (MissingFieldException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (InvalidOperationException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch
+			{
+				return BadRequest();
+			}
+		}
+
+
 		[HttpGet]
 		[Route("all")]
 		public async Task<IActionResult> GetAllUsers()
 		{
 			try
 			{
-				var response = _principalServices.GetUsers();
+				var response = await _principalServices.GetUsers();
 				if (response != null)
 				{
 					return Ok(response);
@@ -43,7 +72,6 @@ namespace SchoolManagerSystem.Controllers
 
 
 		[HttpGet]
-		[Route("[Controller]")]
 		public async Task<IActionResult> GetUser([FromQuery] string userId)
 		{
 			try
@@ -68,11 +96,11 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpPatch]
 		[Route("update")]
-		public async Task<IActionResult> UpdateUser([FromBody] UserUpdateRequest request, [FromQuery] string userId)
+		public async Task<IActionResult> UpdateUser([FromBody] UserUpdateRequest request, [FromQuery] string userId, [FromForm] ImageRequest image)
 		{
 			try
 			{
-				var response = await _principalServices.UpdateUserAsync(userId, request);
+				var response = await _principalServices.UpdateUserAsync(userId, request, image.Image);
 				if (response != null)
 				{
 					return Ok(response);

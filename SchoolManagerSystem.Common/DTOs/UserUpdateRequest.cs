@@ -17,6 +17,8 @@ namespace SchoolManagerSystem.Common.DTOs
 
 		public string Email { get; set; }
 
+		public string ProfilePics { get; set; }
+
 		public string State { get; set; }
 
 		public string City { get; set; }

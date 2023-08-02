@@ -31,9 +31,9 @@ namespace SchoolManagerSystem.Repository.Implementation
 			return userAddress;
 		}
 
-		public async Task<Address> FetchAddressAsync(string addressID)
+		public async Task<Address> FetchAddressAsync(string addressId)
 		{
-			var address = await _dbSet.FindAsync(addressID);
+			var address = await _dbSet.FindAsync(addressId);
 			return address;
 		}
 

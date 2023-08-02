@@ -1,11 +1,9 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SchoolManagerSystem.Common.Model;
-using SchoolManagerSystem.Model.Entities;
+using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Files.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,15 +15,15 @@ namespace SchoolManagerSystem.Service.Files.Implementations
 	public class ImageService : IImageService
 	{
 		private readonly IConfiguration _config;
-		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IUnitOfWork _unit;
 		private readonly IHttpContextAccessor _httpContextAccessor;
 		private readonly Cloudinary _cloudinary;
 		private readonly ImageSettings _imageSettings;
 
-        public ImageService(IConfiguration config, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
-        {
+		public ImageService(IConfiguration config, IUnitOfWork unit, IHttpContextAccessor httpContextAccessor)
+		{
 			_config = config;
-			_userManager = userManager;
+			_unit = unit;
 			_httpContextAccessor = httpContextAccessor;
 			_imageSettings = config.GetSection("CloudinarySettings").Get<ImageSettings>();
 			_cloudinary = new Cloudinary(new Account(
@@ -33,11 +31,11 @@ namespace SchoolManagerSystem.Service.Files.Implementations
 				_imageSettings.ApiKey,
 				_imageSettings.ApiSecret));
 		}
-        public async Task<string> UploadImage(IFormFile image)
+		public async Task<string> UploadImageAsync(IFormFile image)
 		{
 			var imageExtension = _config.GetSection("PhotoSettings:Formats").Get<List<string>>();
 			var userId = _httpContextAccessor.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
-			var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
+			var user = await _unit.Image.FetchAsync(userId);
 			var fileFormat = false;
 			foreach (var item in imageExtension)
 			{
@@ -65,9 +63,10 @@ namespace SchoolManagerSystem.Service.Files.Implementations
 				});
 			}
 			user.ProfilePics = uploadResult.Uri.ToString();
-			await _userManager.UpdateAsync(user);
+			_unit.Image.Update(user);
+			var picsUri = user.ProfilePics;
 
-			return "Image upload successfully";
+			return picsUri;
 		}
 	}
 }

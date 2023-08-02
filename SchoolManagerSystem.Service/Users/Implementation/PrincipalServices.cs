@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Common.Enums;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
+using SchoolManagerSystem.Service.Files.Interfaces;
 using SchoolManagerSystem.Service.Users.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SchoolManagerSystem.Service.Users.Implementation
 {
@@ -16,13 +19,16 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 		private readonly IUnitOfWork _unit;
 		private readonly IAuthServices _auth;
 		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IImageService _image;
 
-		public PrincipalServices(IUnitOfWork unit, IAuthServices auth, UserManager<ApplicationUser> userManager)
+		public PrincipalServices(IUnitOfWork unit, IAuthServices auth, UserManager<ApplicationUser> userManager, IImageService image)
 		{
 			_unit = unit;
 			_auth = auth;
 			_userManager = userManager;
+			_image = image;
 		}
+
 		public async Task<string> CreateUserAsync(UserRegistrationRequest request)
 		{
 			var user = new ApplicationUser
@@ -87,7 +93,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			return response;
 		}
 
-		public async Task<string> UpdateUserAsync(string userId, UserUpdateRequest request)
+		public async Task<string> UpdateUserAsync(string userId, UserUpdateRequest request, IFormFile image)
 		{
 			var user = await _userManager.FindByIdAsync(userId);
 			if (user == null)
@@ -98,13 +104,15 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			var appUser = await _unit.Principal.GetPrincipalAsync(user.Id);
 			var address = await _unit.Address.FetchAddressAsync(appUser.AddressId);
 
-			user.FirstName = request.FirstName ?? user.FirstName;
-			user.LastName = request.LastName ?? user.LastName;
-			user.Email = request.Email ?? user.Email;
-			user.UserName = request.UserName ?? user.UserName;
+			user.FirstName = !string.IsNullOrEmpty(request.FirstName) ? request.FirstName : user.FirstName;
+			user.LastName = !string.IsNullOrEmpty(request.LastName) ? request.LastName : user.LastName;
+			user.Email = !string.IsNullOrEmpty(request.Email) ? request.Email : user.Email;
+			user.UserName = !string.IsNullOrEmpty(request.UserName) ? request.UserName : user.UserName;
+			user.ProfilePics = !string.IsNullOrEmpty(request.ProfilePics) ? await _image.UploadImageAsync(image) : user.ProfilePics;
 			user.UpdatedOn = DateTime.UtcNow;
-			address.State = request.State ?? address.State;
-			address.City = request.City ?? address.City;
+
+			address.State = !string.IsNullOrEmpty(request.State) ? request.State : address.State;
+			address.City = !string.IsNullOrEmpty(request.City) ? request.City : address.City;
 			address.UpdatedOn = DateTime.UtcNow;
 
 			var updatingAddressResult = _unit.Address.UpdateAddressAsync(address);

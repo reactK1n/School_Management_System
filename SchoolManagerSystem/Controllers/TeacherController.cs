@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagerSystem.Common.DTOs;
-using System.Threading.Tasks;
-using System;
 using SchoolManagerSystem.Service.Users.Interfaces;
+using System;
+using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Controllers
 {
@@ -12,9 +12,38 @@ namespace SchoolManagerSystem.Controllers
 	{
 		private readonly ITeacherServices _teacherServices;
 
-		public TeacherController(ITeacherServices teacherServices) 
+		public TeacherController(ITeacherServices teacherServices)
 		{
 			_teacherServices = teacherServices;
+		}
+
+
+		[HttpPost]
+		[Route("register")]
+		public async Task<IActionResult> RegisterTeacher([FromBody] UserRegistrationRequest userRegistrationRequest)
+		{
+			try
+			{
+				var response = await _teacherServices.CreateUserAsync(userRegistrationRequest);
+				if (response != null)
+				{
+					return Ok(response);
+				}
+				return BadRequest();
+
+			}
+			catch (MissingFieldException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (InvalidOperationException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch
+			{
+				return BadRequest();
+			}
 		}
 
 
@@ -24,7 +53,7 @@ namespace SchoolManagerSystem.Controllers
 		{
 			try
 			{
-				var response = _teacherServices.GetUsers();
+				var response = await _teacherServices.GetUsers();
 				if (response != null)
 				{
 					return Ok(response);
@@ -44,7 +73,6 @@ namespace SchoolManagerSystem.Controllers
 
 
 		[HttpGet]
-		[Route("[Controller]")]
 		public async Task<IActionResult> GetUser([FromQuery] string userId)
 		{
 			try
@@ -69,11 +97,11 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpPatch]
 		[Route("update")]
-		public async Task<IActionResult> UpdateUser([FromBody] UserUpdateRequest request, [FromQuery] string userId)
+		public async Task<IActionResult> UpdateUser([FromBody] UserUpdateRequest request, [FromQuery] string userId, [FromForm] ImageRequest image)
 		{
 			try
 			{
-				var response = await _teacherServices.UpdateUserAsync(userId, request);
+				var response = await _teacherServices.UpdateUserAsync(userId, request, image.Image);
 				if (response != null)
 				{
 					return Ok(response);
