@@ -163,6 +163,5 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 
 			return "User Removed Successfully";
 		}
-
 	}
 }

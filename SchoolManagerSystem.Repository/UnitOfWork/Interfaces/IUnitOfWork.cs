@@ -16,7 +16,7 @@ namespace SchoolManagerSystem.Repository.UnitOfWork.Interfaces
 
 		IStudentRepository Student { get; }
 
-		IImageRepository Image { get; }
+		IUserRepository User { get; }
 
 		Task SaveChangesAsync();
     }

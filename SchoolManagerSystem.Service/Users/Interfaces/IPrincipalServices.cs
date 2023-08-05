@@ -15,6 +15,5 @@ namespace SchoolManagerSystem.Service.Users.Interfaces
 		Task<string> UpdateUserAsync(UserUpdateRequest request);
 
 		Task<string> DeleteUserAsync(string userId);
-
 	}
 }

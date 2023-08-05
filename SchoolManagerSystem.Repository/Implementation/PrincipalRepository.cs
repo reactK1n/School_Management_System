@@ -8,42 +8,41 @@ using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Repository.Implementation
 {
-    public class PrincipalRepository : GenericRepository<Principal>, IPrincipalRepository
-    {
-        private readonly DbSet<Principal> _dbSet;
+	public class PrincipalRepository : GenericRepository<Principal>, IPrincipalRepository
+	{
+		private readonly DbSet<Principal> _dbSet;
 
-        public PrincipalRepository(SMSContext context) : base(context)
-        {
-            _dbSet = context.Set<Principal>();
-        }
+		public PrincipalRepository(SMSContext context) : base(context)
+		{
+			_dbSet = context.Set<Principal>();
+		}
 
-        public Principal CreatePrincipal(string userId, string addressId)
-        {
-            var principal = new Principal
-            {
-                UserId = userId,
-                AddressId = addressId
-            };
+		public Principal CreatePrincipal(string userId, string addressId)
+		{
+			var principal = new Principal
+			{
+				UserId = userId,
+				AddressId = addressId
+			};
 
-            _dbSet.Add(principal);
-            return principal;
-        }
+			_dbSet.Add(principal);
+			return principal;
+		}
 
-        public ICollection<Principal> FetchPrincipals()
-        {
-            return _dbSet.ToList();
-        }
+		public ICollection<Principal> FetchPrincipals()
+		{
+			return _dbSet.ToList();
+		}
 
+		public async Task<Principal> GetPrincipalAsync(string userId)
+		{
+			var user = await _dbSet.FirstOrDefaultAsync(x => x.UserId == userId);
+			return user;
+		}
 
-        public async Task<Principal> GetPrincipalAsync(string userId)
-        {
-            var user = await _dbSet.FirstOrDefaultAsync(x => x.UserId == userId);
-            return user;
-        }
-
-        public async Task DeletePrincipalAsync(Principal principal)
-        {
-            _dbSet.Remove(principal);
-        }
-    }
+		public async Task DeletePrincipalAsync(Principal principal)
+		{
+			_dbSet.Remove(principal);
+		}
+	}
 }

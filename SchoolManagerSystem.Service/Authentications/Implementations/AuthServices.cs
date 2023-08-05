@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Authentications.Implementations
 {
-    public class AuthServices : IAuthServices
+	public class AuthServices : IAuthServices
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly ITokenService _token;
@@ -71,5 +71,5 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 
 			return response;
 		}
-    }
+	}
 }

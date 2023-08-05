@@ -14,7 +14,7 @@ namespace SchoolManagerSystem.Repository.UnitOfWork.Implementations
 		private IAddressRepository _address;
 		private ITeacherRepository _teacher;
 		private IStudentRepository _student;
-		private IImageRepository _image;
+		private IUserRepository _User;
 
 		public UnitOfWork(SMSContext context)
 		{
@@ -41,9 +41,9 @@ namespace SchoolManagerSystem.Repository.UnitOfWork.Implementations
 			get => _student ??= new StudentRepository(_context);
 		}
 
-		public IImageRepository Image
+		public IUserRepository User
 		{
-			get => _image ??= new ImageRepository(_context);
+			get => _User ??= new UserRepository(_context);
 		}
 
 		public async Task SaveChangesAsync()

@@ -35,7 +35,7 @@ namespace SchoolManagerSystem.Service.Files.Implementations
 		{
 			var imageExtension = _config.GetSection("PhotoSettings:Formats").Get<List<string>>();
 			var userId = _httpContextAccessor.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
-			var user = await _unit.Image.FetchAsync(userId);
+			var user = await _unit.User.FetchAsync(userId);
 			var fileFormat = false;
 			foreach (var item in imageExtension)
 			{
@@ -63,7 +63,7 @@ namespace SchoolManagerSystem.Service.Files.Implementations
 				});
 			}
 			user.ProfilePics = uploadResult.Uri.ToString();
-			_unit.Image.Update(user);
+			await _unit.User.UpdateAsync(user);
 			var picsUri = user.ProfilePics;
 
 			return picsUri;

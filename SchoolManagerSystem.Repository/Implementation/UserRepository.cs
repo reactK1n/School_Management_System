@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagerSystem.Data;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Repository.Interfaces;
@@ -7,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Repository.Implementation
 {
-	public class ImageRepository : IImageRepository
+	public class UserRepository : IUserRepository
 	{
 
 		private readonly DbSet<ApplicationUser> _dbSet;
 
-		public ImageRepository(SMSContext context) 
+		public UserRepository(SMSContext context)
 		{
 			_dbSet = context.Set<ApplicationUser>();
 		}
@@ -23,7 +22,7 @@ namespace SchoolManagerSystem.Repository.Implementation
 			return user;
 		}
 
-		public void Update(ApplicationUser user)
+		public async Task UpdateAsync(ApplicationUser user)
 		{
 			_dbSet.Update(user);
 		}
