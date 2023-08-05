@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SchoolManagerSystem.Service.Users.Implementation
 {
@@ -96,7 +95,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			return response;
 		}
 
-		public async Task<string> UpdateUserAsync(UserUpdateRequest request, IFormFile image)
+		public async Task<string> UpdateUserAsync(UserUpdateRequest request)
 		{
 
 			var userId = _httpContextAccessor.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
@@ -108,7 +107,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			user.LastName = !string.IsNullOrEmpty(request.LastName) ? request.LastName : user.LastName;
 			user.Email = !string.IsNullOrEmpty(request.Email) ? request.Email : user.Email;
 			user.UserName = !string.IsNullOrEmpty(request.UserName) ? request.UserName : user.UserName;
-			user.ProfilePics = !string.IsNullOrEmpty(await _image.UploadImageAsync(image)) ? await _image.UploadImageAsync(image) : user.ProfilePics;
+			user.ProfilePics = !string.IsNullOrEmpty(await _image.UploadImageAsync(request.Image)) ? await _image.UploadImageAsync(request.Image) : user.ProfilePics;
 			user.UpdatedOn = DateTime.UtcNow;
 
 			address.State = !string.IsNullOrEmpty(request.State) ? request.State : address.State;

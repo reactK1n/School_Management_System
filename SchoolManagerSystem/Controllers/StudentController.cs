@@ -101,16 +101,20 @@ namespace SchoolManagerSystem.Controllers
 		[HttpPatch]
 		[Route("update")]
 		[Authorize(Roles = "Student")]
-		public async Task<IActionResult> UpdateUser([FromBody] UserUpdateRequest request, [FromForm]ImageRequest image)
+		public async Task<IActionResult> UpdateUser([FromForm] UserUpdateRequest request)
 		{
 			try
 			{
-				var response = await _studentServices.UpdateUserAsync(request, image.Image);
+				var response = await _studentServices.UpdateUserAsync(request);
 				if (response != null)
 				{
 					return Ok(response);
 				}
 				return BadRequest($"Updating Not Successful");
+			}
+			catch (NotSupportedException ex)
+			{
+				return BadRequest("File Not Supported");
 			}
 			catch (MissingFieldException ex)
 			{
