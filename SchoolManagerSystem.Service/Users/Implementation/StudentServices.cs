@@ -9,6 +9,7 @@ using SchoolManagerSystem.Service.Files.Interfaces;
 using SchoolManagerSystem.Service.Users.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -20,13 +21,15 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 		private readonly IAuthServices _auth;
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IImageService _image;
+		private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public StudentServices(IUnitOfWork unit, IAuthServices auth, UserManager<ApplicationUser> userManager, IImageService image)
+		public StudentServices(IUnitOfWork unit, IAuthServices auth, UserManager<ApplicationUser> userManager, IImageService image, IHttpContextAccessor httpContextAccessor)
 		{
 			_unit = unit;
 			_auth = auth;
 			_userManager = userManager;
 			_image = image;
+			_httpContextAccessor = httpContextAccessor;
 		}
 
 		public async Task<string> CreateUserAsync(UserRegistrationRequest request)
@@ -93,22 +96,19 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			return response;
 		}
 
-		public async Task<string> UpdateUserAsync(string userId, UserUpdateRequest request, IFormFile image)
+		public async Task<string> UpdateUserAsync(UserUpdateRequest request, IFormFile image)
 		{
-			var user = await _userManager.FindByIdAsync(userId);
-			if (user == null)
-			{
-				throw new ArgumentNullException($"User with {userId} Not Found ");
-			};
 
-			var appUser = await _unit.Student.GetStudentAsync(user.Id);
-			var address = await _unit.Address.FetchAddressAsync(appUser.AddressId);
+			var userId = _httpContextAccessor.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+			var user = await _userManager.FindByIdAsync(userId);
+			var student = await _unit.Student.GetStudentAsync(user.Id);
+			var address = await _unit.Address.FetchAddressAsync(student.AddressId);
 
 			user.FirstName = !string.IsNullOrEmpty(request.FirstName) ? request.FirstName : user.FirstName;
 			user.LastName = !string.IsNullOrEmpty(request.LastName) ? request.LastName : user.LastName;
 			user.Email = !string.IsNullOrEmpty(request.Email) ? request.Email : user.Email;
 			user.UserName = !string.IsNullOrEmpty(request.UserName) ? request.UserName : user.UserName;
-			user.ProfilePics = !string.IsNullOrEmpty(request.ProfilePics) ? await _image.UploadImageAsync(image) : user.ProfilePics;
+			user.ProfilePics = !string.IsNullOrEmpty(await _image.UploadImageAsync(image)) ? await _image.UploadImageAsync(image) : user.ProfilePics;
 			user.UpdatedOn = DateTime.UtcNow;
 
 			address.State = !string.IsNullOrEmpty(request.State) ? request.State : address.State;
@@ -143,9 +143,9 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 				throw new ArgumentNullException($"User with {userId} Not Found ");
 			};
 
-			var appUser = await _unit.Student.GetStudentAsync(user.Id);
-			var address = await _unit.Address.FetchAddressAsync(appUser.AddressId);
-			await _unit.Student.DeleteStudentAsync(appUser);
+			var student = await _unit.Student.GetStudentAsync(user.Id);
+			var address = await _unit.Address.FetchAddressAsync(student.AddressId);
+			await _unit.Student.DeleteStudentAsync(student);
 			var updatingAddressResult = _unit.Address.DeleteAddressAsync(address);
 			var result = await _userManager.DeleteAsync(user);
 			await _unit.SaveChangesAsync();

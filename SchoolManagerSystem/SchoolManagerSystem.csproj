@@ -29,4 +29,8 @@
     <ProjectReference Include="..\SchoolManagerSystem.Service\SchoolManagerSystem.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
 </Project>

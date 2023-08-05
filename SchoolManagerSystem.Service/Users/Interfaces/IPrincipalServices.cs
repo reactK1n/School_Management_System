@@ -13,7 +13,7 @@ namespace SchoolManagerSystem.Service.Users.Interfaces
 
 		Task<UserResponse> GetUserAsync(string userId);
 
-		Task<string> UpdateUserAsync(string userId, UserUpdateRequest request, IFormFile image);
+		Task<string> UpdateUserAsync(UserUpdateRequest request, IFormFile image);
 
 		Task<string> DeleteUserAsync(string userId);
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Service.Users.Interfaces;
 using System;
@@ -97,22 +98,18 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpPatch]
 		[Route("update")]
-		public async Task<IActionResult> UpdateUser([FromBody] UserUpdateRequest request, [FromQuery] string userId, [FromForm] ImageRequest image)
+		[Authorize(Roles = "Teacher")]
+		public async Task<IActionResult> UpdateUser([FromBody] UserUpdateRequest request, [FromForm] ImageRequest image)
 		{
 			try
 			{
-				var response = await _teacherServices.UpdateUserAsync(userId, request, image.Image);
+				var response = await _teacherServices.UpdateUserAsync(request, image.Image);
 				if (response != null)
 				{
 					return Ok(response);
 				}
-				return BadRequest($"No User with {userId} Found");
+				return BadRequest($"Updating Not Successful");
 			}
-			catch (ArgumentNullException ex)
-			{
-				return BadRequest(ex.Message);
-			}
-
 			catch (MissingFieldException ex)
 			{
 				return BadRequest(ex.Message);
