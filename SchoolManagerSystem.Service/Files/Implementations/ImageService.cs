@@ -7,7 +7,6 @@ using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Files.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Files.Implementations
@@ -15,16 +14,12 @@ namespace SchoolManagerSystem.Service.Files.Implementations
 	public class ImageService : IImageService
 	{
 		private readonly IConfiguration _config;
-		private readonly IUnitOfWork _unit;
-		private readonly IHttpContextAccessor _httpContextAccessor;
 		private readonly Cloudinary _cloudinary;
 		private readonly ImageSettings _imageSettings;
 
-		public ImageService(IConfiguration config, IUnitOfWork unit, IHttpContextAccessor httpContextAccessor)
+		public ImageService(IConfiguration config, IUnitOfWork unit)
 		{
 			_config = config;
-			_unit = unit;
-			_httpContextAccessor = httpContextAccessor;
 			_imageSettings = config.GetSection("CloudinarySettings").Get<ImageSettings>();
 			_cloudinary = new Cloudinary(new Account(
 				_imageSettings.CloudName,
@@ -34,12 +29,10 @@ namespace SchoolManagerSystem.Service.Files.Implementations
 		public async Task<string> UploadImageAsync(IFormFile image)
 		{
 			var imageExtension = _config.GetSection("PhotoSettings:Formats").Get<List<string>>();
-			var userId = _httpContextAccessor.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
-			var user = await _unit.User.FetchAsync(userId);
 			var fileFormat = false;
 			foreach (var item in imageExtension)
 			{
-				if (image.FileName.EndsWith(item))
+				if (image.FileName.ToLower().EndsWith(item))
 				{
 					fileFormat = true;
 					break;
@@ -62,9 +55,7 @@ namespace SchoolManagerSystem.Service.Files.Implementations
 					Transformation = new Transformation().Radius("max").Chain().Crop("scale").Width("200").Height("200")
 				});
 			}
-			user.ProfilePics = uploadResult.Uri.ToString();
-			await _unit.User.UpdateAsync(user);
-			var picsUri = user.ProfilePics;
+			var picsUri = uploadResult.Uri.ToString();
 
 			return picsUri;
 		}

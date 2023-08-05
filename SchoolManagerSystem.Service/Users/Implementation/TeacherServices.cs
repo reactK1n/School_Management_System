@@ -103,12 +103,13 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			var user = await _userManager.FindByIdAsync(userId);
 			var teacher = await _unit.Teacher.GetTeacherAsync(user.Id);
 			var address = await _unit.Address.FetchAddressAsync(teacher.AddressId);
+			var imageUri = await _image.UploadImageAsync(request.Image);
 
 			user.FirstName = !string.IsNullOrEmpty(request.FirstName) ? request.FirstName : user.FirstName;
 			user.LastName = !string.IsNullOrEmpty(request.LastName) ? request.LastName : user.LastName;
 			user.Email = !string.IsNullOrEmpty(request.Email) ? request.Email : user.Email;
 			user.UserName = !string.IsNullOrEmpty(request.UserName) ? request.UserName : user.UserName;
-			user.ProfilePics = !string.IsNullOrEmpty(await _image.UploadImageAsync(request.Image)) ? await _image.UploadImageAsync(request.Image) : user.ProfilePics;
+			user.ProfilePics = !string.IsNullOrEmpty(imageUri) ? imageUri : user.ProfilePics;
 			user.UpdatedOn = DateTime.UtcNow;
 
 			address.State = !string.IsNullOrEmpty(request.State) ? request.State : address.State;
