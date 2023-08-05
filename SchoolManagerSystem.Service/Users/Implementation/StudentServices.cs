@@ -52,7 +52,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 
 		public async Task<ICollection<UserResponse>> GetUsers()
 		{
-			var users = _unit.Principal.FetchPrincipals();
+			var users = _unit.Student.FetchStudents();
 			if (users == null)
 			{
 				throw new ArgumentNullException("No User Found");
