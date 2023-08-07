@@ -44,7 +44,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 
 			var createUser = await _auth.Register(user, request.Password, UserRole.Principal);
 			var createAddress = _unit.Address.CreateAddress(request);
-			var principal = _unit.Principal.CreatePrincipal(createUser.Id, createAddress.Id);
+			_unit.Principal.CreatePrincipal(createUser.Id, createAddress.Id);
 			await _unit.SaveChangesAsync();
 
 			return "principal successfully created";
@@ -97,7 +97,6 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 
 		public async Task<string> UpdateUserAsync(UserUpdateRequest request)
 		{
-
 			var userId = _httpContextAccessor.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 			var user = await _userManager.FindByIdAsync(userId);
 			var principal = await _unit.Principal.GetPrincipalAsync(user.Id);
