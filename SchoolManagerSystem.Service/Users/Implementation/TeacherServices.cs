@@ -110,6 +110,10 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 
 			var userId = _httpContextAccessor.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 			var user = await _userManager.FindByIdAsync(userId);
+			if (user == null)
+			{
+				throw new ArgumentNullException("User not found");
+			}
 			var teacher = await _unit.Teacher.GetTeacherAsync(user.Id);
 			var address = await _unit.Address.FetchAddressAsync(teacher.AddressId);
 			var imageUri = await _image.UploadImageAsync(request.Image);

@@ -67,7 +67,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 				throw new ArgumentNullException("No User Found");
 			};
 
-			var response = new List<UserResponse>();
+			var response = new List<UserResponse>(); 
 			foreach (var user in users)
 			{
 				var appUser = await _userManager.FindByIdAsync(user.UserId);
@@ -107,7 +107,11 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 		public async Task<string> UpdateUserAsync(UserUpdateRequest request)
 		{
 			var userId = _httpContextAccessor.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
-			var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+				throw new ArgumentNullException("User not found");
+            }
 			var principal = await _unit.Principal.GetPrincipalAsync(user.Id);
 			var address = await _unit.Address.FetchAddressAsync(principal.AddressId);
 			var imageUri = await _image.UploadImageAsync(request.Image);

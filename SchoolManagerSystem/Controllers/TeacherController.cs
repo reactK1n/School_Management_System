@@ -33,6 +33,10 @@ namespace SchoolManagerSystem.Controllers
 				return BadRequest();
 
 			}
+			catch (ArgumentNullException ex)
+			{
+				return BadRequest(ex.Message);
+			}
 			catch (MissingFieldException ex)
 			{
 				return BadRequest(ex.Message);

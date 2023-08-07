@@ -110,6 +110,10 @@ namespace SchoolManagerSystem.Controllers
 				}
 				return BadRequest($"Updating Not Successful");
 			}
+			catch (ArgumentNullException ex)
+			{
+				return BadRequest(ex.Message);
+			}
 			catch (NotSupportedException ex)
 			{
 				return BadRequest("File Not Supported");
