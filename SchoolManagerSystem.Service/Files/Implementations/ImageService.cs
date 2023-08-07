@@ -56,7 +56,6 @@ namespace SchoolManagerSystem.Service.Files.Implementations
 				});
 			}
 			var picsUri = uploadResult.Uri.ToString();
-
 			return picsUri;
 		}
 	}

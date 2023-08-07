@@ -32,7 +32,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			_httpContextAccessor = httpContextAccessor;
 		}
 
-		public async Task<string> CreateUserAsync(UserRegistrationRequest request)
+		public async Task<UserResponse> CreateUserAsync(UserRegistrationRequest request)
 		{
 			var user = new ApplicationUser
 			{
@@ -48,7 +48,16 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			var teacher = _unit.Teacher.CreateTeacher(createUser.Id, createAddress.Id);
 			await _unit.SaveChangesAsync();
 
-			return "Teacher successfully created";
+			var response = new UserResponse
+			{
+				Id = user.Id,
+				FirstName = request.FirstName,
+				LastName = request.LastName,
+				UserName = request.UserName,
+				Email = request.Email
+			};
+
+			return response;
 		}
 
 		public async Task<ICollection<UserResponse>> GetUsers()
