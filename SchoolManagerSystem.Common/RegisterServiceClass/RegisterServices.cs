@@ -49,6 +49,5 @@ namespace SchoolManagerSystem.Common.RegisterServiceClass
 				opt.Password.RequireUppercase = true;
 			});
 		}
-
 	}
 }

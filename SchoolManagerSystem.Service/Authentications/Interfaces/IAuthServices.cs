@@ -7,7 +7,7 @@ namespace SchoolManagerSystem.Service.Authentications.Interfaces
 {
 	public interface IAuthServices
 	{
-		Task<UserRegistrationResponse> Register(ApplicationUser user, string password, UserRole role);
+		Task<UserResponse> Register(ApplicationUser user, string password, UserRole role);
 
 		Task<LoginResponse> Login(LoginRequest loginRequest);
 	}

@@ -14,8 +14,11 @@ using SchoolManagerSystem.Repository.UnitOfWork.Implementations;
 using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Authentications.Implementations;
 using SchoolManagerSystem.Service.Authentications.Interfaces;
-using SchoolManagerSystem.Service.Principal.Implementation;
-using SchoolManagerSystem.Service.Principal.Interfaces;
+using SchoolManagerSystem.Service.Users.Implementation;
+using SchoolManagerSystem.Service.Users.Interfaces;
+using SchoolManagerSystem.Service.Files.Implementations;
+using SchoolManagerSystem.Service.Files.Interfaces;
+using System;
 
 namespace SchoolManagerSystem
 {
@@ -37,11 +40,17 @@ namespace SchoolManagerSystem
 				//registering of database service
 				opt.UseSqlServer(Configuration["ConnectionStrings:DefaultConnectionString"]);
 			});
+			services.AddHttpContextAccessor();
 			services.AddScoped<ITokenService, TokenService>();
 			services.AddScoped<IAuthServices, AuthServices>();
+			services.AddScoped<IImageService, ImageService>();
 			services.AddScoped<IAddressRepository, AddressRepository>();
 			services.AddScoped<IPrincipalRepository, PrincipalRepository>();
-			services.AddScoped<ICreatePrincipal, CreatePrincipal>();
+			services.AddScoped<ITeacherRepository, TeacherRepository>();
+			services.AddScoped<IStudentRepository, StudentRepository>();
+			services.AddScoped<IPrincipalServices, PrincipalServices>();
+			services.AddScoped<ITeacherServices, TeacherServices>();
+			services.AddScoped<IStudentServices, StudentServices>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddAuthenticationConfig(Configuration);
 
@@ -49,6 +58,31 @@ namespace SchoolManagerSystem
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchoolManagerSystem", Version = "v1" });
+				//this for locking the api with roles inside controller
+				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+				{
+					Name = "Authorization",
+					Type = SecuritySchemeType.ApiKey,
+					Scheme = "Bearer",
+					BearerFormat = "JWT",
+					In = ParameterLocation.Header,
+					Description = "Enter 'Bearer' [space] and then your valid token in the input below.\r\n\rExample: \"Bearer ioqnqf8uqnwifqiwunwfudifijdfdlkjsdnfajldjnfj"
+				});
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
+					{
+
+						new OpenApiSecurityScheme
+						{
+							Reference = new OpenApiReference
+							{
+								Type = ReferenceType.SecurityScheme,
+								Id = "Bearer"
+							}
+						},
+						Array.Empty<string>()
+					}
+				});
 			});
 		}
 

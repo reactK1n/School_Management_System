@@ -4,6 +4,7 @@ using SchoolManagerSystem.Data;
 using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Repository.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Repository.Implementation
 {
@@ -30,5 +31,21 @@ namespace SchoolManagerSystem.Repository.Implementation
 			return userAddress;
 		}
 
+		public async Task<Address> FetchAddressAsync(string addressId)
+		{
+			var address = await _dbSet.FindAsync(addressId);
+			return address;
+		}
+
+
+		public async Task UpdateAddressAsync(Address address)
+		{
+			_dbSet.Update(address);
+		}
+
+		public async Task DeleteAddressAsync(Address address)
+		{
+			_dbSet.Remove(address);
+		}
 	}
 }
