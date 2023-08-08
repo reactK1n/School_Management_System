@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Authentications.Implementations
 {
-    public class AuthServices : IAuthServices
+	public class AuthServices : IAuthServices
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly ITokenService _token;
@@ -19,7 +19,7 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 			_token = token;
 		}
 
-		public async Task<UserRegistrationResponse> Register(ApplicationUser user, string password, UserRole role)
+		public async Task<UserResponse> Register(ApplicationUser user, string password, UserRole role)
 		{
 			var results = await _userManager.CreateAsync(user, password);
 			if (!results.Succeeded)
@@ -33,7 +33,7 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 			}
 			await _userManager.AddToRoleAsync(user, role.ToString());
 
-			var response = new UserRegistrationResponse
+			var response = new UserResponse
 			{
 				Id = user.Id,
 				FirstName = user.FirstName,
@@ -71,5 +71,5 @@ namespace SchoolManagerSystem.Service.Authentications.Implementations
 
 			return response;
 		}
-    }
+	}
 }

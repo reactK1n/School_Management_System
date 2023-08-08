@@ -1,25 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace SchoolManagerSystem.Common.DTOs
 {
-	public class UserRegistrationRequest
+	public class UserUpdateRequest
 	{
-		[Required]
 		public string FirstName { get; set; }
 
-		[Required]
 		public string LastName { get; set; }
 
-        public string UserName { get; set; }
+		public string UserName { get; set; }
 
 		public string Email { get; set; }
 
-		public string Password { get; set; }
-
-		[Required]
 		public string State { get; set; }
 
-		[Required]
 		public string City { get; set; }
-    }
+
+		public IFormFile Image { get; set; }
+
+	}
 }
