@@ -116,18 +116,14 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			}
 			var teacher = await _unit.Teacher.GetTeacherAsync(user.Id);
 			var address = await _unit.Address.FetchAddressAsync(teacher.AddressId);
-			var imageUri = await _image.UploadImageAsync(request.Image);
 
 			user.FirstName = !string.IsNullOrEmpty(request.FirstName) ? request.FirstName : user.FirstName;
 			user.LastName = !string.IsNullOrEmpty(request.LastName) ? request.LastName : user.LastName;
 			user.Email = !string.IsNullOrEmpty(request.Email) ? request.Email : user.Email;
 			user.UserName = !string.IsNullOrEmpty(request.UserName) ? request.UserName : user.UserName;
-			user.ProfilePics = !string.IsNullOrEmpty(imageUri) ? imageUri : user.ProfilePics;
-			user.UpdatedOn = DateTime.UtcNow;
-
+			user.ProfilePics = request.Image != null ? await _image.UploadImageAsync(request.Image) : user.ProfilePics;
 			address.State = !string.IsNullOrEmpty(request.State) ? request.State : address.State;
 			address.City = !string.IsNullOrEmpty(request.City) ? request.City : address.City;
-			address.UpdatedOn = DateTime.UtcNow;
 
 			var updatingAddressResult = _unit.Address.UpdateAddressAsync(address);
 			var result = await _userManager.UpdateAsync(user);
