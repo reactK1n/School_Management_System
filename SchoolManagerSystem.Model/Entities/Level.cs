@@ -8,6 +8,7 @@ namespace SchoolManagerSystem.Model.Entities
 
         //navigation properties
         public ICollection<Student> Students { get; set; }
+
         public ICollection<Course> Courses { get; set; }
     }
 }
