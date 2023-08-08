@@ -7,13 +7,18 @@ namespace SchoolManagerSystem.Model.Entities
 	{
 		[ForeignKey("User")]
 		public string UserId { get; set; }
+
 		public string AddressId { get; set; }
+
 		public string LevelId { get; set; }
 
 		//navigation properties
 		public ApplicationUser User { get; set; }
+
 		public Level Level { get; set; }
+
 		public Address Address { get; set; }
+
 		public ICollection<Course> Courses { get; set; }
 
 	}

@@ -11,6 +11,7 @@ namespace SchoolManagerSystem.Model.Entities
 
         //navigation properties
         public Address Address { get; set; }
+
         public ApplicationUser User { get; set; }
     }
 }
