@@ -115,6 +115,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			var principal = await _unit.Principal.GetPrincipalAsync(user.Id);
 			var address = await _unit.Address.FetchAddressAsync(principal.AddressId);
 
+			//assigning values
 			user.FirstName = !string.IsNullOrEmpty(request.FirstName) ? request.FirstName : user.FirstName;
 			user.LastName = !string.IsNullOrEmpty(request.LastName) ? request.LastName : user.LastName;
 			user.Email = !string.IsNullOrEmpty(request.Email) ? request.Email : user.Email;
@@ -123,9 +124,12 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			address.State = !string.IsNullOrEmpty(request.State) ? request.State : address.State;
 			address.City = !string.IsNullOrEmpty(request.City) ? request.City : address.City;
 
+			//updating entites
+			await _unit.Principal.UpdatePrincipal(principal);
 			var updatingAddressResult = _unit.Address.UpdateAddressAsync(address);
-			_unit.Principal.UpdatePrincipal(principal);
 			var result = await _userManager.UpdateAsync(user);
+
+			//saving changes
 			await _unit.SaveChangesAsync();
 
 			if (!result.Succeeded || !updatingAddressResult.IsCompleted)
