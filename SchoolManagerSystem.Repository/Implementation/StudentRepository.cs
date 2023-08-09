@@ -44,5 +44,10 @@ namespace SchoolManagerSystem.Repository.Implementation
 		{
 			_dbSet.Remove(student);
 		}
+
+		public async Task UpdateStudent(Student student)
+		{
+			_dbSet.Update(student);
+		}
 	}
 }
