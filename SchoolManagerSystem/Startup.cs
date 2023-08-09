@@ -19,6 +19,7 @@ using SchoolManagerSystem.Service.Users.Interfaces;
 using SchoolManagerSystem.Service.Files.Implementations;
 using SchoolManagerSystem.Service.Files.Interfaces;
 using System;
+using SchoolManagerSystem.Data.SeederClass;
 
 namespace SchoolManagerSystem
 {
@@ -96,6 +97,7 @@ namespace SchoolManagerSystem
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolManagerSystem v1"));
 			}
 
+			app.seedData();
 			app.InitRoles();
 			app.UseHttpsRedirection();
 			app.UseRouting();

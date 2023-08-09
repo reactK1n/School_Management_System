@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace SchoolManagerSystem.Model.Entities
 {
     public class Level : BaseEntity
     {
-        public string LevelName { get; set; }
+		[JsonProperty("levelName")]
+		public string LevelName { get; set; }
 
         //navigation properties
         public ICollection<Student> Students { get; set; }
