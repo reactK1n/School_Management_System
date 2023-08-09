@@ -123,6 +123,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			address.State = !string.IsNullOrEmpty(request.State) ? request.State : address.State;
 			address.City = !string.IsNullOrEmpty(request.City) ? request.City : address.City;
 
+			await _unit.Student.UpdateStudent(student);
 			var updatingAddressResult = _unit.Address.UpdateAddressAsync(address);
 			var result = await _userManager.UpdateAsync(user);
 			await _unit.SaveChangesAsync();

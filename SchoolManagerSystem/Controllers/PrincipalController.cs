@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagerSystem.Common.DTOs;
-using SchoolManagerSystem.Common.Enums;
 using SchoolManagerSystem.Service.Users.Interfaces;
 using System;
 using System.Threading.Tasks;

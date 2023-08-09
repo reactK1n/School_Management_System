@@ -12,6 +12,8 @@ namespace SchoolManagerSystem.Repository.Interfaces
 
 		Task<Principal> GetPrincipalAsync(string userId);
 
+		Task UpdatePrincipal(Principal principal);
+
 		Task DeletePrincipalAsync(Principal principal);
 	}
 }

@@ -40,6 +40,11 @@ namespace SchoolManagerSystem.Repository.Implementation
 			return user;
 		}
 
+		public async Task UpdatePrincipal(Principal principal)
+		{
+			_dbSet.Update(principal);
+		}
+
 		public async Task DeletePrincipalAsync(Principal principal)
 		{
 			_dbSet.Remove(principal);

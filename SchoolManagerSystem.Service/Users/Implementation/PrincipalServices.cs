@@ -124,6 +124,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			address.City = !string.IsNullOrEmpty(request.City) ? request.City : address.City;
 
 			var updatingAddressResult = _unit.Address.UpdateAddressAsync(address);
+			_unit.Principal.UpdatePrincipal(principal);
 			var result = await _userManager.UpdateAsync(user);
 			await _unit.SaveChangesAsync();
 

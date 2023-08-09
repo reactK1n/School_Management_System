@@ -12,6 +12,8 @@ namespace SchoolManagerSystem.Repository.Interfaces
 
 		Task<Student> GetStudentAsync(string userId);
 
+		Task UpdateStudent(Student student);
+
 		Task DeleteStudentAsync(Student student);
 
 
