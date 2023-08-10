@@ -40,6 +40,12 @@ namespace SchoolManagerSystem.Repository.Implementation
 			return user;
 		}
 
+		public async Task<Student> FetchStudentAsync(string levelId)
+		{
+			var user = await _dbSet.FirstOrDefaultAsync(x => x.LevelId == levelId);
+			return user;
+		}
+
 		public async Task DeleteStudentAsync(Student student)
 		{
 			_dbSet.Remove(student);
