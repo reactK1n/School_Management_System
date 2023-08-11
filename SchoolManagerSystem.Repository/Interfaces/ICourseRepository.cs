@@ -16,8 +16,6 @@ namespace SchoolManagerSystem.Repository.Interfaces
 
 		Task<Course> GetCoursesAsync(string courseId);
 
-		Task<ICollection<Course>> GetStudentCoursesAsync(string studentId);
-
 		Task UpdateCoursesAsync(Course course);
 
 

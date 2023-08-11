@@ -1,6 +1,7 @@
 ﻿using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Courses.Interfaces;
+using SchoolManagerSystem.Service.Validations.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,21 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 	public class CourseServices : ICourseServices
 	{
 		private readonly IUnitOfWork _unit;
+		private readonly IRequestValidations _validate;
 
-		public CourseServices(IUnitOfWork unit)
+		public CourseServices(IUnitOfWork unit, IRequestValidations validate)
 		{
 			_unit = unit;
+			_validate = validate;
 		}
 
 		public async Task<CourseResponse> AddCourse(CourseRequest request)
 		{
+			if (!_validate.IsCourseNameValid(request.CourseName))
+			{
+				throw new ArgumentException("Course Name Is Invalid");
+			}
+
 			var student = await _unit.Student.FetchStudentAsync(request.LevelId);
 			if (student.Count == 0)
 			{
@@ -81,7 +89,7 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 				{
 					Id = course.Id,
 					CourseName = course.CourseName,
-					LevelName = level.LevelName //we arrange it later
+					LevelName = level.LevelName 
 				});
 
 			}
@@ -111,7 +119,7 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 				{
 					Id = course.Id,
 					CourseName = course.CourseName,
-					LevelName = level.LevelName//we arrange it later
+					LevelName = level.LevelName
 				});
 
 			}
@@ -120,6 +128,11 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 
 		public async Task<string> UpdateCourseAsync(CourseUpdateRequest request, string courseId)
 		{
+			if (!_validate.IsCourseNameValid(request.CourseName))
+			{
+				throw new ArgumentException("Course Name Is Invalid");
+			}
+
 			var course = await _unit.Course.GetCoursesAsync(courseId);
 			if (course == null)
 			{

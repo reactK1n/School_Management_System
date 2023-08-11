@@ -22,6 +22,8 @@ using System;
 using SchoolManagerSystem.Data.SeederClass;
 using SchoolManagerSystem.Service.Courses.Interfaces;
 using SchoolManagerSystem.Service.Courses.Implementations;
+using SchoolManagerSystem.Service.Validations.Interfaces;
+using SchoolManagerSystem.Service.Validations.Implementations;
 
 namespace SchoolManagerSystem
 {
@@ -57,6 +59,7 @@ namespace SchoolManagerSystem
 			services.AddScoped<ITeacherServices, TeacherServices>();
 			services.AddScoped<IStudentServices, StudentServices>();
 			services.AddScoped<ICourseServices, CourseServices>();
+			services.AddScoped<IRequestValidations, RequestValidations>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddAuthenticationConfig(Configuration);
 

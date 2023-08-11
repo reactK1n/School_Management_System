@@ -1,8 +1,13 @@
-﻿namespace SchoolManagerSystem.Common.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SchoolManagerSystem.Common.DTOs
 {
 	public class RegisterStudentRequest 
 	{
+		[Required]
 		public  UserRegistrationRequest UserRegistrationRequest { get; set; }
-        public string LevelId { get; set; }
+		
+		[Required]
+		public string LevelId { get; set; }
 	}
 }

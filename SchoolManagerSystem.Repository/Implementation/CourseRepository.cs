@@ -46,15 +46,6 @@ namespace SchoolManagerSystem.Repository.Implementation
 			return course;
 		}
 
-		public async Task<ICollection<Course>> GetStudentCoursesAsync(string studentId)
-		{
-			var courses = await _dbSet
-				.Where(course => course.Students.Any(student => student.Id == studentId))
-				.ToListAsync();
-
-			return courses;
-		}
-
 		public async Task UpdateCoursesAsync(Course course)
 		{
 			_dbSet.Update(course);

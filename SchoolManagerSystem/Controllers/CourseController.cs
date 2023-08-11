@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagerSystem.Common.DTOs;
-using System.Threading.Tasks;
-using System;
 using SchoolManagerSystem.Service.Courses.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Controllers
 {
@@ -14,14 +13,14 @@ namespace SchoolManagerSystem.Controllers
 		private readonly ICourseServices _courseServices;
 
 		public CourseController(ICourseServices courseServices)
-        {
+		{
 			_courseServices = courseServices;
 		}
 
 
-        [HttpPost]
+		[HttpPost]
 		[Route("add")]
-/*		[Authorize(Roles = "Teacher")]*/
+		/*		[Authorize(Roles = "Teacher")]*/
 		public async Task<IActionResult> AddCourse([FromBody] CourseRequest request)
 		{
 			try
@@ -38,6 +37,10 @@ namespace SchoolManagerSystem.Controllers
 			{
 				return BadRequest(ex.Message);
 			}
+			catch (ArgumentException ex)
+			{
+				return BadRequest(ex.Message);
+			}
 			catch
 			{
 				return BadRequest();
@@ -47,8 +50,8 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpGet]
 		[Route("all")]
-/*		[Authorize(Roles = "Principal")]
-		[Authorize(Roles = "Teacher")]*/
+		/*		[Authorize(Roles = "Principal")]
+				[Authorize(Roles = "Teacher")]*/
 		public async Task<IActionResult> GetAllCourses([FromQuery] string levelId)
 		{
 			try
@@ -97,8 +100,8 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpPatch]
 		[Route("update")]
-/*		[Authorize(Roles = "Principal")]
-		[Authorize(Roles = "Teacher")]*/
+		/*		[Authorize(Roles = "Principal")]
+				[Authorize(Roles = "Teacher")]*/
 		public async Task<IActionResult> UpdateCourse([FromBody] CourseUpdateRequest request, [FromQuery] string courseId)
 		{
 			try
@@ -111,6 +114,10 @@ namespace SchoolManagerSystem.Controllers
 				return BadRequest("Updating Not Successful");
 			}
 			catch (ArgumentNullException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (ArgumentException ex)
 			{
 				return BadRequest(ex.Message);
 			}
@@ -128,8 +135,8 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpDelete]
 		[Route("Delete")]
-/*		[Authorize(Roles = "Principal")]
-		[Authorize(Roles = "Teacher")]*/
+		/*		[Authorize(Roles = "Principal")]
+				[Authorize(Roles = "Teacher")]*/
 		public async Task<IActionResult> DeleteCourse([FromQuery] string courseId)
 		{
 			try
