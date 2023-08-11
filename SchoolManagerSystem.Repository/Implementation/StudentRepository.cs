@@ -17,14 +17,8 @@ namespace SchoolManagerSystem.Repository.Implementation
 			_dbSet = context.Set<Student>();
 		}
 
-		public Student CreateStudent(string userId, string addressId)
+		public Student CreateStudent(Student student)
 		{
-			var student = new Student
-			{
-				UserId = userId,
-				AddressId = addressId
-			};
-
 			_dbSet.Add(student);
 			return student;
 		}
@@ -45,6 +39,7 @@ namespace SchoolManagerSystem.Repository.Implementation
 			var user = await _dbSet.Where(x => x.LevelId == levelId).ToListAsync();
 			return user;
 		}
+
 
 		public async Task DeleteStudentAsync(Student student)
 		{

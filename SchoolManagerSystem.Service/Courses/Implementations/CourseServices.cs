@@ -3,6 +3,7 @@ using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Courses.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SchoolManagerSystem.Service.Courses.Implementations
@@ -89,7 +90,13 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 
 		public async Task<ICollection<CourseResponse>> GetStudentCourseAsync(string studentId)
 		{
-			var courses = await _unit.Course.GetStudentCoursesAsync(studentId);
+			var student = _unit.Student.FetchStudents().FirstOrDefault(st => st.Id == studentId);
+			if (student == null)
+			{
+				throw new ArgumentNullException("Invalid StudentID");
+			}
+			var courses = await _unit.Course.FetchCoursesAsync(student.LevelId);
+
 			if (courses.Count == 0)
 			{
 				throw new ArgumentNullException($"No Course Found ");
