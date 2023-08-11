@@ -49,7 +49,7 @@ namespace SchoolManagerSystem.Repository.UnitOfWork.Implementations
 			get => _course ??= new CourseRepository(_context);
 		}
 
-		public ILevelRepository level
+		public ILevelRepository Level
 		{
 			get => _level ??= new LevelRepository(_context);
 		}

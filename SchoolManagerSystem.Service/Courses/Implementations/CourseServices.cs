@@ -18,16 +18,24 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 
 		public async Task<CourseResponse> AddCourse(CourseRequest request)
 		{
-			var students = await _unit.Student.FetchStudentAsync(request.LevelId);
-			if (students == null)
+			var student = await _unit.Student.FetchStudentAsync(request.LevelId);
+			if (student == null)
 			{
 				throw new ArgumentNullException($"invalid levelId {request.LevelId} ");
 			}
 
-			var course = await _unit.Course.AddCourse(request, students);
+			var course = await _unit.Course.AddCourse(request, student);
+			if (course == null)
+			{
+				throw new ArgumentNullException();
+			}
 			await _unit.SaveChangesAsync();
 			var level = await _unit.Level.FetchLevelAsync(course.LevelId);
-			var response = (new CourseResponse
+			if (level == null)
+			{
+				throw new ArgumentNullException($"Invalid levelId {course.LevelId}");
+			}
+			var response = new CourseResponse
 			{
 				Id = course.Id,
 				CourseName = course.CourseName,
@@ -52,7 +60,7 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 				throw new MissingFieldException($"{result.Exception}");
 			}
 
-			return "User Removed Successfully";
+			return "Course Removed Successfully";
 		}
 
 		public async Task<ICollection<CourseResponse>> FetchCoursesAsync(string levelId)
