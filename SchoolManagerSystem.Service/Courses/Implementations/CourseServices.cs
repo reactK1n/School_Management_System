@@ -19,7 +19,7 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 		public async Task<CourseResponse> AddCourse(CourseRequest request)
 		{
 			var student = await _unit.Student.FetchStudentAsync(request.LevelId);
-			if (student == null)
+			if (student.Count == 0)
 			{
 				throw new ArgumentNullException($"invalid levelId {request.LevelId} ");
 			}
@@ -39,7 +39,7 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 			{
 				Id = course.Id,
 				CourseName = course.CourseName,
-				LevelName = level.LevelName//we arrange it later
+				LevelName = level.LevelName
 			};
 
 			return response;
@@ -90,7 +90,7 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 		public async Task<ICollection<CourseResponse>> GetStudentCourseAsync(string studentId)
 		{
 			var courses = await _unit.Course.GetStudentCoursesAsync(studentId);
-			if (courses == null)
+			if (courses.Count == 0)
 			{
 				throw new ArgumentNullException($"No Course Found ");
 			};
@@ -111,9 +111,9 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 			return response;
 		}
 
-		public async Task<string> UpdateCourseAsync(CourseRequest request)
+		public async Task<string> UpdateCourseAsync(CourseUpdateRequest request, string courseId)
 		{
-			var course = await _unit.Course.GetCoursesAsync(request.LevelId);
+			var course = await _unit.Course.GetCoursesAsync(courseId);
 			if (course == null)
 			{
 				throw new ArgumentNullException("Course Not Found");
