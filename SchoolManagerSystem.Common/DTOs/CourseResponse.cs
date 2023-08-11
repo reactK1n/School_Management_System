@@ -1,11 +1,13 @@
 ﻿namespace SchoolManagerSystem.Common.DTOs
 {
-	public class AddCourseResponse
+	public class CourseResponse
 	{
 		public string Id { get; set; }
 
-		public string Coursename { get; set; }
+		public string CourseName { get; set; }
 
 		public string LevelName { get; set; }
+
+
 	}
 }

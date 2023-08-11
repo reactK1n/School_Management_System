@@ -17,8 +17,4 @@
     <ProjectReference Include="..\SchoolManagerSystem.Repository\SchoolManagerSystem.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Courses\Interfaces\" />
-  </ItemGroup>
-
 </Project>

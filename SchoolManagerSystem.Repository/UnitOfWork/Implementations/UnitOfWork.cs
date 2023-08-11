@@ -15,6 +15,8 @@ namespace SchoolManagerSystem.Repository.UnitOfWork.Implementations
 		private ITeacherRepository _teacher;
 		private IStudentRepository _student;
 		private ICourseRepository _course;
+		private ILevelRepository _level;
+
 
 
 		public UnitOfWork(SMSContext context)
@@ -45,6 +47,11 @@ namespace SchoolManagerSystem.Repository.UnitOfWork.Implementations
 		public ICourseRepository Course
 		{
 			get => _course ??= new CourseRepository(_context);
+		}
+
+		public ILevelRepository level
+		{
+			get => _level ??= new LevelRepository(_context);
 		}
 
 		public async Task SaveChangesAsync()

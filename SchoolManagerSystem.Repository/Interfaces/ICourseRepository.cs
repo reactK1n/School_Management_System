@@ -8,15 +8,17 @@ namespace SchoolManagerSystem.Repository.Interfaces
 {
 	public interface ICourseRepository
 	{
-		Task AddCourse(AddCourseRequest request, Level level, List<Student> students);
+		Task<Course> AddCourse(CourseRequest request,  ICollection<Student> students);
 		
-		Task DeleteCourseAsync(string id);
+		Task DeleteCourseAsync(Course course);
 		
 		Task<ICollection<Course>> FetchCoursesAsync(string levelId);
 
-		Task<ICollection<string>> GetStudentCourses(string studentId);
+		Task<Course> GetCoursesAsync(string courseId);
 
-		Task UpdateCoursesAsync(string levelId);
+		Task<ICollection<Course>> GetStudentCoursesAsync(string studentId);
+
+		Task UpdateCoursesAsync(Course course);
 
 
 	}

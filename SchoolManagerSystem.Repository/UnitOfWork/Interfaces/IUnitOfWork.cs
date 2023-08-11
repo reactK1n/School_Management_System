@@ -18,6 +18,8 @@ namespace SchoolManagerSystem.Repository.UnitOfWork.Interfaces
 
 		ICourseRepository Course { get; }
 
+		ILevelRepository Level { get; }
+
 		Task SaveChangesAsync();
     }
 }

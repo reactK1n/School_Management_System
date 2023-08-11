@@ -17,21 +17,20 @@ namespace SchoolManagerSystem.Repository.Implementation
 			_dbSet = context.Set<Course>();
 		}
 
-		public async Task AddCourse(AddCourseRequest request, Level level, List<Student> students)
+		public async Task<Course> AddCourse(CourseRequest request, ICollection<Student> students)
 		{
 			var course = new Course
 			{
 				CourseName = request.CourseName,
 				LevelId = request.LevelId,
-				Level = level,
 				Students = students
 			};
 			_dbSet.Add(course);
+			return course;
 		}
 
-		public async Task DeleteCourseAsync(string id)
+		public async Task DeleteCourseAsync(Course course)
 		{
-			var course = await _dbSet.FirstOrDefaultAsync(cou => cou.Id == id);
 			_dbSet.Remove(course);
 		}
 
@@ -41,23 +40,24 @@ namespace SchoolManagerSystem.Repository.Implementation
 			return courses;
 		}
 
-		public async Task<ICollection<string>> GetStudentCourses(string studentId)
+		public async Task<Course> GetCoursesAsync(string courseId)
 		{
-			var courseNames = await _dbSet
-				.Where(course => course.Students.Any(student => student.Id == studentId))
-				.Select(course => course.CourseName)
-				.ToListAsync();
-
-			return courseNames;
+			var course = await _dbSet.FirstOrDefaultAsync(cou => cou.Id == courseId);
+			return course;
 		}
 
-		public async Task UpdateCoursesAsync(string levelId)
+		public async Task<ICollection<Course>> GetStudentCoursesAsync(string studentId)
 		{
-			var courses = await _dbSet.Where(cou => cou.LevelId == levelId).ToListAsync();
-			foreach (var course in courses)
-			{
-				_dbSet.Update(course);
-			}
+			var courses = await _dbSet
+				.Where(course => course.Students.Any(student => student.Id == studentId))
+				.ToListAsync();
+
+			return courses;
+		}
+
+		public async Task UpdateCoursesAsync(Course course)
+		{
+			_dbSet.Update(course);
 		}
 	}
 }

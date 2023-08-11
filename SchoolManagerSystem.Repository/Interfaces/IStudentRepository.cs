@@ -12,7 +12,7 @@ namespace SchoolManagerSystem.Repository.Interfaces
 
 		Task<Student> GetStudentAsync(string userId);
 
-		Task<Student> FetchStudentAsync(string levelId);
+		Task<ICollection<Student>> FetchStudentAsync(string levelId);
 
 		Task UpdateStudent(Student student);
 

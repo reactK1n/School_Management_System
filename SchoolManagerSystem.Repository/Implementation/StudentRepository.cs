@@ -40,9 +40,9 @@ namespace SchoolManagerSystem.Repository.Implementation
 			return user;
 		}
 
-		public async Task<Student> FetchStudentAsync(string levelId)
+		public async Task<ICollection<Student>> FetchStudentAsync(string levelId)
 		{
-			var user = await _dbSet.FirstOrDefaultAsync(x => x.LevelId == levelId);
+			var user = await _dbSet.Where(x => x.LevelId == levelId).ToListAsync();
 			return user;
 		}
 

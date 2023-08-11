@@ -20,6 +20,8 @@ using SchoolManagerSystem.Service.Files.Implementations;
 using SchoolManagerSystem.Service.Files.Interfaces;
 using System;
 using SchoolManagerSystem.Data.SeederClass;
+using SchoolManagerSystem.Service.Courses.Interfaces;
+using SchoolManagerSystem.Service.Courses.Implementations;
 
 namespace SchoolManagerSystem
 {
@@ -48,10 +50,13 @@ namespace SchoolManagerSystem
 			services.AddScoped<IAddressRepository, AddressRepository>();
 			services.AddScoped<IPrincipalRepository, PrincipalRepository>();
 			services.AddScoped<ITeacherRepository, TeacherRepository>();
+			services.AddScoped<ICourseRepository, CourseRepository>();
+			services.AddScoped<ILevelRepository, LevelRepository>();
 			services.AddScoped<IStudentRepository, StudentRepository>();
 			services.AddScoped<IPrincipalServices, PrincipalServices>();
 			services.AddScoped<ITeacherServices, TeacherServices>();
 			services.AddScoped<IStudentServices, StudentServices>();
+			services.AddScoped<ICourseServices, CourseServices>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddAuthenticationConfig(Configuration);
 

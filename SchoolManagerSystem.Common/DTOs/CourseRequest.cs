@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SchoolManagerSystem.Common.DTOs
 {
-	public class AddCourseRequest
+	public class CourseRequest
 	{
 		[Required]
 		public string CourseName { get; set; }
