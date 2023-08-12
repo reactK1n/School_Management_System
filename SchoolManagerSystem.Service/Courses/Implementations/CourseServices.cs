@@ -1,7 +1,8 @@
-﻿using SchoolManagerSystem.Common.DTOs;
+﻿using SchoolManagerSystem.Common;
+using SchoolManagerSystem.Common.DTOs;
+using SchoolManagerSystem.Model.Entities;
 using SchoolManagerSystem.Repository.UnitOfWork.Interfaces;
 using SchoolManagerSystem.Service.Courses.Interfaces;
-using SchoolManagerSystem.Service.Validations.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,43 +13,40 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 	public class CourseServices : ICourseServices
 	{
 		private readonly IUnitOfWork _unit;
-		private readonly IRequestValidations _validate;
 
-		public CourseServices(IUnitOfWork unit, IRequestValidations validate)
+		public CourseServices(IUnitOfWork unit)
 		{
 			_unit = unit;
-			_validate = validate;
 		}
 
 		public async Task<CourseResponse> AddCourse(CourseRequest request)
 		{
-			if (!_validate.IsCourseNameValid(request.CourseName))
+			if (!Helper.IsCourseNameValid(request.CourseName))
 			{
 				throw new ArgumentException("Course Name Is Invalid");
 			}
 
-			var student = await _unit.Student.FetchStudentAsync(request.LevelId);
-			if (student.Count == 0)
-			{
-				throw new ArgumentNullException($"invalid levelId {request.LevelId} ");
-			}
-
-			var course = await _unit.Course.AddCourse(request, student);
-			if (course == null)
-			{
-				throw new ArgumentNullException();
-			}
-			await _unit.SaveChangesAsync();
-			var level = await _unit.Level.FetchLevelAsync(course.LevelId);
+			var level = await _unit.Level.FetchLevelAsync(request.LevelId);
 			if (level == null)
 			{
-				throw new ArgumentNullException($"Invalid levelId {course.LevelId}");
+				throw new ArgumentNullException($"Invalid LevelId {request.LevelId}");
 			}
+
+			var course = new Course
+			{
+				CourseName = request.CourseName,
+				LevelId = request.LevelId,
+			};
+
+			_unit.Course.AddCourse(course);
+			await _unit.SaveChangesAsync();
+
 			var response = new CourseResponse
 			{
 				Id = course.Id,
 				CourseName = course.CourseName,
 				LevelName = level.LevelName
+				
 			};
 
 			return response;
@@ -63,11 +61,11 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 			};
 
 			var result = _unit.Course.DeleteCourseAsync(course);
-			await _unit.SaveChangesAsync();
 			if (!result.IsCompleted)
 			{
 				throw new MissingFieldException($"{result.Exception}");
 			}
+			await _unit.SaveChangesAsync();
 
 			return "Course Removed Successfully";
 		}
@@ -75,37 +73,7 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 		public async Task<ICollection<CourseResponse>> FetchCoursesAsync(string levelId)
 		{
 			var courses = await _unit.Course.FetchCoursesAsync(levelId);
-			if (courses == null)
-			{
-				throw new ArgumentNullException($"No Course Found ");
-			};
-
-			var response = new List<CourseResponse>();
-
-			foreach (var course in courses)
-			{
-				var level = await _unit.Level.FetchLevelAsync(course.LevelId);
-				response.Add(new CourseResponse
-				{
-					Id = course.Id,
-					CourseName = course.CourseName,
-					LevelName = level.LevelName 
-				});
-
-			}
-			return response;
-		}
-
-		public async Task<ICollection<CourseResponse>> GetStudentCourseAsync(string studentId)
-		{
-			var student = _unit.Student.FetchStudents().FirstOrDefault(st => st.Id == studentId);
-			if (student == null)
-			{
-				throw new ArgumentNullException("Invalid StudentID");
-			}
-			var courses = await _unit.Course.FetchCoursesAsync(student.LevelId);
-
-			if (courses.Count == 0)
+			if (!courses.Any())
 			{
 				throw new ArgumentNullException($"No Course Found ");
 			};
@@ -126,9 +94,38 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 			return response;
 		}
 
+		public async Task<ICollection<CourseResponse>> GetStudentCourseAsync(string studentId)
+		{
+			var student = _unit.Student.FetchStudents().FirstOrDefault(st => st.Id == studentId);
+			if (student == null)
+			{
+				throw new ArgumentNullException("Invalid StudentID");
+			}
+			var courses = await _unit.Course.FetchCoursesAsync(student.LevelId);
+
+			if (!courses.Any())
+			{
+				throw new ArgumentNullException($"No Course Found ");
+			};
+
+			var response = new List<CourseResponse>();
+
+			foreach (var course in courses)
+			{
+				var level = await _unit.Level.FetchLevelAsync(course.LevelId);
+				response.Add(new CourseResponse
+				{
+					Id = course.Id,
+					CourseName = course.CourseName
+				});
+
+			}
+			return response;
+		}
+
 		public async Task<string> UpdateCourseAsync(CourseUpdateRequest request, string courseId)
 		{
-			if (!_validate.IsCourseNameValid(request.CourseName))
+			if (!Helper.IsCourseNameValid(request.CourseName))
 			{
 				throw new ArgumentException("Course Name Is Invalid");
 			}
@@ -146,13 +143,13 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 
 			//updating entites
 			var result = _unit.Course.UpdateCoursesAsync(course);
-			await _unit.SaveChangesAsync();
-			//saving changes
 
 			if (!result.IsCompleted)
 			{
 				throw new MissingFieldException($"{result.Exception}");
 			}
+			await _unit.SaveChangesAsync();
+			//saving changes
 
 			return "Course Updated Successfully";
 		}

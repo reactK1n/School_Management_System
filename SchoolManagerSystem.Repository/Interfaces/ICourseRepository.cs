@@ -8,8 +8,8 @@ namespace SchoolManagerSystem.Repository.Interfaces
 {
 	public interface ICourseRepository
 	{
-		Task<Course> AddCourse(CourseRequest request,  ICollection<Student> students);
-		
+		void AddCourse(Course course);
+
 		Task DeleteCourseAsync(Course course);
 		
 		Task<ICollection<Course>> FetchCoursesAsync(string levelId);

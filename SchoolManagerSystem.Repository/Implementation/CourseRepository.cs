@@ -17,16 +17,9 @@ namespace SchoolManagerSystem.Repository.Implementation
 			_dbSet = context.Set<Course>();
 		}
 
-		public async Task<Course> AddCourse(CourseRequest request, ICollection<Student> students)
+		public void AddCourse(Course course)
 		{
-			var course = new Course
-			{
-				CourseName = request.CourseName,
-				LevelId = request.LevelId,
-				Students = students
-			};
 			_dbSet.Add(course);
-			return course;
 		}
 
 		public async Task DeleteCourseAsync(Course course)
