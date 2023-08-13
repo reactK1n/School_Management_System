@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SchoolManagerSystem.Common.DTOs;
 using SchoolManagerSystem.Service.Courses.Interfaces;
 using System;
@@ -20,7 +21,7 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpPost]
 		[Route("add")]
-		/*		[Authorize(Roles = "Teacher")]*/
+		[Authorize(Roles = "Teacher")]
 		public async Task<IActionResult> AddCourse([FromBody] CourseRequest request)
 		{
 			try
@@ -50,8 +51,8 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpGet]
 		[Route("all")]
-		/*		[Authorize(Roles = "Principal")]
-				[Authorize(Roles = "Teacher")]*/
+		[Authorize(Roles = "Principal")]
+		[Authorize(Roles = "Teacher")]
 		public async Task<IActionResult> GetAllCourses([FromQuery] string levelId)
 		{
 			try
@@ -100,18 +101,14 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpPatch]
 		[Route("update")]
-		/*		[Authorize(Roles = "Principal")]
-				[Authorize(Roles = "Teacher")]*/
+		[Authorize(Roles = "Principal")]
+		[Authorize(Roles = "Teacher")]
 		public async Task<IActionResult> UpdateCourse([FromBody] CourseUpdateRequest request, [FromQuery] string courseId)
 		{
 			try
 			{
-				var response = await _courseServices.UpdateCourseAsync(request, courseId);
-				if (response != null)
-				{
-					return Ok(response);
-				}
-				return BadRequest("Updating Not Successful");
+				await _courseServices.UpdateCourseAsync(request, courseId);
+				return NoContent();
 			}
 			catch (ArgumentNullException ex)
 			{
@@ -135,18 +132,14 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpDelete]
 		[Route("Delete")]
-		/*		[Authorize(Roles = "Principal")]
-				[Authorize(Roles = "Teacher")]*/
+		[Authorize(Roles = "Principal")]
+		[Authorize(Roles = "Teacher")]
 		public async Task<IActionResult> DeleteCourse([FromQuery] string courseId)
 		{
 			try
 			{
-				var response = await _courseServices.DeleteCourseAsync(courseId);
-				if (response != null)
-				{
-					return Ok(response);
-				}
-				return BadRequest($"No Course with {courseId} Found");
+				await _courseServices.DeleteCourseAsync(courseId);
+				return NoContent();
 			}
 			catch (ArgumentNullException ex)
 			{

@@ -8,12 +8,12 @@ namespace SchoolManagerSystem.Service.Courses.Interfaces
 	{
 		Task<CourseResponse> AddCourse(CourseRequest request);
 
-		Task<string> DeleteCourseAsync(string courseId);
+		Task DeleteCourseAsync(string courseId);
 
 		Task<ICollection<CourseResponse>> FetchCoursesAsync(string levelId);
 
 		Task<ICollection<CourseResponse>> GetStudentCourseAsync(string studentId);
 
-		Task<string> UpdateCourseAsync(CourseUpdateRequest request, string courseId);
+		Task UpdateCourseAsync(CourseUpdateRequest request, string courseId);
 	}
 }

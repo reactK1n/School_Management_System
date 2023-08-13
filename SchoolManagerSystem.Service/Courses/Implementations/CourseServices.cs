@@ -52,7 +52,7 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 			return response;
 		}
 
-		public async Task<string> DeleteCourseAsync(string courseId)
+		public async Task DeleteCourseAsync(string courseId)
 		{
 			var course = await _unit.Course.GetCoursesAsync(courseId);
 			if (course == null)
@@ -60,14 +60,8 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 				throw new ArgumentNullException($"User with {courseId} Not Found ");
 			};
 
-			var result = _unit.Course.DeleteCourseAsync(course);
-			if (!result.IsCompleted)
-			{
-				throw new MissingFieldException($"{result.Exception}");
-			}
+			await _unit.Course.DeleteCourseAsync(course);
 			await _unit.SaveChangesAsync();
-
-			return "Course Removed Successfully";
 		}
 
 		public async Task<ICollection<CourseResponse>> FetchCoursesAsync(string levelId)
@@ -123,7 +117,7 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 			return response;
 		}
 
-		public async Task<string> UpdateCourseAsync(CourseUpdateRequest request, string courseId)
+		public async Task UpdateCourseAsync(CourseUpdateRequest request, string courseId)
 		{
 			if (!Helper.IsCourseNameValid(request.CourseName))
 			{
@@ -142,16 +136,9 @@ namespace SchoolManagerSystem.Service.Courses.Implementations
 				: course.CourseName;
 
 			//updating entites
-			var result = _unit.Course.UpdateCoursesAsync(course);
-
-			if (!result.IsCompleted)
-			{
-				throw new MissingFieldException($"{result.Exception}");
-			}
-			await _unit.SaveChangesAsync();
+			await _unit.Course.UpdateCoursesAsync(course);
 			//saving changes
-
-			return "Course Updated Successfully";
+			await _unit.SaveChangesAsync();
 		}
 	}
 }
