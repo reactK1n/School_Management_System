@@ -22,11 +22,11 @@ namespace SchoolManagerSystem.Controllers
 
 		[HttpPost]
 		[Route("register")]
-		public async Task<IActionResult> RegisterStudent([FromBody] UserRegistrationRequest userRegistrationRequest)
+		public async Task<IActionResult> RegisterStudent([FromBody] RegisterStudentRequest request)
 		{
 			try
 			{
-				var response = await _studentServices.CreateUserAsync(userRegistrationRequest);
+				var response = await _studentServices.CreateUserAsync(request.UserRegistrationRequest, request.LevelId);
 				if (response != null)
 				{
 					return Ok(response);

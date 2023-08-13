@@ -31,7 +31,7 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 			_httpContextAccessor = httpContextAccessor;
 		}
 
-		public async Task<UserResponse> CreateUserAsync(UserRegistrationRequest request)
+		public async Task<UserResponse> CreateUserAsync(UserRegistrationRequest request, string levelId)
 		{
 			var user = new ApplicationUser
 			{
@@ -42,9 +42,19 @@ namespace SchoolManagerSystem.Service.Users.Implementation
 				EmailConfirmed = true
 			};
 
-			var createUser = await _auth.Register(user, request.Password, UserRole.Student);
-			var createAddress = _unit.Address.CreateAddress(request);
-			var student = _unit.Student.CreateStudent(createUser.Id, createAddress.Id);
+			var createdUser = await _auth.Register(user, request.Password, UserRole.Student);
+			var createdAddress = _unit.Address.CreateAddress(request);
+			var level = await _unit.Level.FetchLevelAsync(levelId);
+			var courses = await _unit.Course.FetchCoursesAsync(levelId);
+			var student = new Student
+			{
+				UserId = createdUser.Id,
+				AddressId = createdAddress.Id,
+				LevelId = levelId,
+				Level = level,
+				Courses = courses
+			};
+			_unit.Student.CreateStudent(student);
 			await _unit.SaveChangesAsync();
 			var response = new UserResponse
 			{

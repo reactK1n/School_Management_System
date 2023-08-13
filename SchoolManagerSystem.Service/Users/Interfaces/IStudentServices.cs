@@ -6,7 +6,7 @@ namespace SchoolManagerSystem.Service.Users.Interfaces
 {
 	public interface IStudentServices
 	{
-		Task<UserResponse> CreateUserAsync(UserRegistrationRequest request);
+		Task<UserResponse> CreateUserAsync(UserRegistrationRequest request, string levelId);
 
 		Task<ICollection<UserResponse>> GetUsers();
 
